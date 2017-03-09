@@ -13,8 +13,19 @@ asi como el contenedor principal-->
 <body>
 	<div id="cabezera">
 		<div id="icono">
-			<img id="imgIcon" src="{{ url_for('static', filename='imagenes/icon_blog.png') }}">
+			<a href="/"><img id="imgIcon" src="{{ url_for('static', filename='imagenes/icon_blog.png') }}"></a>
 		</div>
+
+		<table id="navegacion">
+				<tr>
+					<td>
+						<a href="/">Incio</a>
+					</td>
+					<td>
+						<a href="/publicacion">Publicacion</a>
+					</td>
+				</tr>
+			</table>
   </div>
   <div id="contenedor">
   {%block cuerpo %}

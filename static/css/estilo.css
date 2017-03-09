@@ -33,6 +33,19 @@ body, html {
 		#imgIcon{
 			width: 40px;
 		}
+	#navegacion{
+		float: right;
+		margin-right: 60px;
+		margin-top: 15px;
+	}
+
+		#navegacion a{
+			width: 50px
+			position: relative;
+			padding: 12px;
+			border: 0.2px solid #ccc;
+			text-decoration: none;
+		}
 
 /*Ancho del contenedor, margenes (el primero lo mantiene en el centro de la pagina y el segundo es un margen de arriba)
 borde (para comprobar)*/
