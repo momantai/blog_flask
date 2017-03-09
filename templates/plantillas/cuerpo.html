@@ -7,6 +7,7 @@ asi como el contenedor principal-->
 <head>
 	<title>Index</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+	 <script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
 
 </head>
 <body>
@@ -24,6 +25,11 @@ pagina y se va a heredar todo lo demas asi como el diseño
 y los archivos estaticos-->
   {%endblock%}
   </div>
+
+<footer>
+	<img id="imgIconFooter" src="{{ url_for('static', filename='imagenes/Footer.png') }}">
+	<p>© StreetCode 2017</p>
+</footer>
 
 </body>
 </html>
