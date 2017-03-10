@@ -16,7 +16,7 @@ body, html {
 	top: 0px; 
 	left: 0px; 
 	position: fixed;
-	background-color: #CCFF99;
+	background-color: #DF0606;
 	box-shadow: 2px 2px 5px #999;
 }
 	#icono{
@@ -26,12 +26,12 @@ body, html {
 		float: left;
 
 		margin: 4px;
-		margin-left: 20px
-		position: relative;
+		margin-left: 50px
 	}
 
 		#imgIcon{
 			width: 40px;
+			position: relative;
 		}
 	#navegacion{
 		float: right;
@@ -65,7 +65,7 @@ borde (para comprobar)*/
 		//border:0.2px solid #ccc;
 		padding: 20px;
 
-		margin-bottom: 100px;
+		margin-bottom: 50px;
 	}
 
 		.publicacion{
@@ -154,19 +154,56 @@ borde (para comprobar)*/
 		margin: 0 auto;
 		padding: 15px;
 		border: 0.2px solid #ccc;
-		margin-bottom: 15px;
+		margin-bottom: 50px;
 
 		background-color: white;
 	}
 
 
 /*PIE DE PAGINA*/
-footer {
+
+#pie{
+	width: 960px;
+	margin: 0 auto;
+	margin-top: 96px;
+	padding: 15px;
+	border-top: 0.2px solid #ccc;
+	text-align: center;
+	float: left;
+}
+
+	#pie p {
+		color: gray;
+		margin: 0 auto;
+	}
+
+	#imgIconFooter{
+		width: 50px;
+	}
+
+/*#footer {
+	float: left;
+	margin-bottom: 10px;
+    width:100%;
+    height:80px;
+    text-align: center;
+}
+	
+	#footer p {
+		color: gray;
+		margin: 0 auto;
+	}
+
+	#imgIconFooter{
+		width: 50px;*/
+
+/*footer {
 	float: right;
 	margin-bottom: 10px;
     width:100%;
     height:80px;
     text-align: center;
+    position: relative;
 }
 	
 	footer p {
@@ -176,4 +213,4 @@ footer {
 
 	#imgIconFooter{
 		width: 50px;
-	}
+	}*/

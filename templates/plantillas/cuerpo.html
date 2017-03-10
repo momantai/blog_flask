@@ -11,6 +11,7 @@ asi como el contenedor principal-->
 
 </head>
 <body>
+
 	<div id="cabezera">
 		<div id="icono">
 			<a href="/"><img id="imgIcon" src="{{ url_for('static', filename='imagenes/icon_blog.png') }}"></a>
@@ -26,21 +27,23 @@ asi como el contenedor principal-->
 					</td>
 				</tr>
 			</table>
-  </div>
-  <div id="contenedor">
-  {%block cuerpo %}
-<!--Este espacio que es el cuerpo se va a utilizar
-para meter las distitas partes que se usaran en la pagina
-,aqui se tendra todo el contenido que se desee incluir en la
-pagina y se va a heredar todo lo demas asi como el diseño
-y los archivos estaticos-->
-  {%endblock%}
-  </div>
+  	</div>
+	<div id="cuerpo">
+		<div id="contenedor">
+			{%block cuerpo %}
+				<!--Este espacio que es el cuerpo se va a utilizar
+				para meter las distitas partes que se usaran en la pagina
+				,aqui se tendra todo el contenido que se desee incluir en la
+				pagina y se va a heredar todo lo demas asi como el diseño
+				y los archivos estaticos-->
+			{%endblock%}
+		</div>
+	</div>
 
-<footer>
+<!--<footer>
 	<img id="imgIconFooter" src="{{ url_for('static', filename='imagenes/Footer.png') }}">
 	<p>© StreetCode 2017</p>
-</footer>
+</footer>-->
 
 </body>
 </html>
