@@ -45,6 +45,12 @@ body, html {
 			padding: 12px;
 			border: 0.2px solid #ccc;
 			text-decoration: none;
+			color: white;
+			background: gray;
+		}
+
+		#navegacion a:hover{
+			background: black;
 		}
 
 /*Ancho del contenedor, margenes (el primero lo mantiene en el centro de la pagina y el segundo es un margen de arriba)
@@ -80,10 +86,15 @@ borde (para comprobar)*/
 			.publicacion a h3{
 				font-size: 18px;
 				font-family: Arial;
+				color: #DF0606;
 			}
 
 			.publicacion a {
 				text-decoration: none;
+			}
+
+			.publicacion a:hover h3{
+				color: red;
 			}
 
 			.publicacion p{
