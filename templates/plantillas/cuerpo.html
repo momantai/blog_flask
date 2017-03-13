@@ -6,7 +6,7 @@ asi como el contenedor principal-->
 <html>
 <head>
 	<title>Index</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/cuerpo.css') }}">
 	 <script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
 
 </head>
@@ -37,6 +37,10 @@ asi como el contenedor principal-->
 				pagina y se va a heredar todo lo demas asi como el diseño
 				y los archivos estaticos-->
 			{%endblock%}
+			<div id="pie">
+				<img id="imgIconFooter" src="{{ url_for('static', filename='imagenes/Footer.png') }}">
+				<p>© StreetCode 2017</p>
+			</div>
 		</div>
 	</div>
 

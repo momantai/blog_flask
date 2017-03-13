@@ -1,6 +1,7 @@
 {% extends 'plantillas/cuerpo.html'%}
 
 {%block cuerpo %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/publicacion.css') }}">
 
 <div id="contenidoTotal">
 	<div id ="contenidoPub">
@@ -9,14 +10,14 @@
 			Integer et magna tellus. Donec placerat luctus nibh, ut varius magna aliquet pulvinar. Quisque ut blandit sapien, sed interdum velit. Nam efficitur nisl et metus dictum molestie. Phasellus semper ex sed arcu vestibulum, non mollis nulla viverra. Vestibulum lobortis lacinia est, interdum fermentum ante tempus vel. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam, metus ut vehicula ultricies, diam metus dictum augue, eget suscipit mauris massa eget odio. Suspendisse hendrerit posuere arcu eu mattis. Cras tempus pretium tincidunt. Maecenas fringilla tincidunt leo porttitor luctus. Integer sit amet rhoncus lorem. <br>
 		</p>
 	</div>
-	
+
 	<div id="contenidoComment">
 		<form>
 			<table>
 				<tr>
 					<td>
 						<textarea>
-							
+
 						</textarea>
 					</td>
 
@@ -31,13 +32,8 @@
 	</div>
 
 	<div id="comments">
-		
+
 	</div>
 
-	<div id="pie">
-		<img id="imgIconFooter" src="{{ url_for('static', filename='imagenes/Footer.png') }}">
-		<p>© StreetCode 2017</p>
-	</div>
-</div>
 
 {%endblock%}

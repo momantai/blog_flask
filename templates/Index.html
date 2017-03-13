@@ -6,54 +6,14 @@ y los diseños css y imagenes-->
 {%block cuerpo %}<!--Se tiene que tener el mismo nombre para llamar el espacio-->
 <!--Todo lo que se ponga en este apartado aparecera en el cuerpo de la
 plantilla de cuerpo.html,-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+
 <div id="publicaciones">
-	<div class="publicacion">
-		<a href="#"><h3>Lorem Ipsum</h3></a>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tellus tellus, accumsan eu tincidunt
-			eget, pellentesque eu urna. Phasellus porttitor blandit neque, id facilisis velit eleifend pellentesque
-			. Sed sagittis vulputate erat sed finibus. Donec elementum sapien est, eget volutpat nibh
-			luctus eu. Mauris at semper ipsum, in blandit mi. Donec aliquet placerat scelerisque.
-		<br><br>Aliquam nec neque vitae massa rhoncus rhoncus in nec nisi. Vivamus blandit consequat
-		ipsum consectetur rhoncus. Pellentesqeu sem ante, commodo sed risus ut, ullamcorper viverra erat.
-		 Maecenas libero sem, lacinia eu libero eget, dictum viverra nisl. Mauris venenatis orci et euismod congue
-		 . Nunc posuere leo non massa cursus, at sodales est semper.
-	 </p>
-	</div>
 
 	<div class="publicacion">
-		<a href="#"><h3>Dolor sit AMET</h3></a>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tellus tellus, accumsan eu tincidunt eget,
-			pellentesque eu urna. Phasellus porttitor blandit neque, id facilisis velit eleifend pellentesque.
-			Sed sagittis vulputate erat sed finibus. Donec elementum sapien est, eget volutpat nibh luctus eu.
-			 Mauris at semper ipsum, in blandit mi. Donec aliquet placerat scelerisque.
-		<br><br>Aliquam nec neque vitae massa rhoncus rhoncus in nec nisi. Vivamus blandit consequat ipsum
-		consectetur rhoncus. Pellentesque sem ante, commodo sed risus ut, ullamcorper viverra erat.
-		Maecenas libero sem, lacinia eu libero eget, dictum viverra nisl. Mauris venenatis orci et
-		euismod congue. Nunc posuere leo non massa cursus, at sodales est semper.
-		</p>
+
 	</div>
-
-	<div class="publicacion">
-		<a href="#"><h3>Consectetur adipiscing Elit.</h3></a>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tellus tellus, accumsan eu tincidunt
-			eget, pellentesque eu urna. Phasellus porttitor blandit neque, id facilisis velit eleifend pellentesque.
-			Sed sagittis vulputate erat sed finibus. Donec elementum sapien est, eget volutpat nibh luctus eu.
-			Mauris at semper ipsum, in blandit mi. Donec aliquet placerat scelerisque.
-		<br><br>Aliquam nec neque vitae massa rhoncus rhoncus in nec nisi. Vivamus blandit consequat ipsum
-		consectetur rhoncus. Pellentesque sem ante, commodo sed risus ut, ullamcorper viverra erat.
-		Maecenas libero sem, lacinia eu libero eget, dictum viverra nisl. Mauris venenatis orci et euismod congue.
-		Nunc posuere leo non massa cursus, at sodales est semper.
-		</p>
-	</div>
-</div>
-
-<div id="cajasInformacion">
-
-</div>
-
-<div id="pie">
-	<img id="imgIconFooter" src="{{ url_for('static', filename='imagenes/Footer.png') }}">
-	<p>© StreetCode 2017</p>
 </div>
 
 {%endblock%}

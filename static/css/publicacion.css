@@ -1,0 +1,54 @@
+#contenidoTotal{
+	float: left;
+	width: 960px;
+	height: 500px;
+	//border: 0.2px solid #ccc;
+	//margin-bottom: 50px;
+	padding: 5px;
+
+	//background-color: white;
+}
+	#contenidoPub{
+		width: 850px;
+		margin: 0 auto;
+		margin-bottom: 15px;
+		padding: 15px;
+		border: 0.2px solid #ccc;
+    text-align: center;
+		background-color: white;
+	}
+
+	#contenidoComment{
+		width: 850px;
+		margin: 0 auto;
+		margin-bottom: 15px;
+		padding: 15px;
+		border: 0.2px solid #ccc;
+
+		background-color: white;
+	}
+
+		#contenidoComment textarea{
+			width: 560px;
+			height: 50px;
+			padding: 15px;
+			margin-right: 10px;
+		}
+
+		#contenidoComment button{
+			width: 100px;
+			height: 50px;
+			padding: 15px;
+			margin-left: 10px;
+			margin-bottom: 10
+		}
+
+	#comments{
+		width: 850px;
+		margin: 0 auto;
+		padding: 15px;
+		border: 0.2px solid #ccc;
+		margin-bottom: 50px;
+
+		background-color: red;
+	}
