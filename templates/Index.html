@@ -10,10 +10,11 @@ plantilla de cuerpo.html,-->
 
 
 <div id="publicaciones">
-
+{%for a in lista%}
 	<div class="publicacion">
-
+  {{a}}
 	</div>
+	{%endfor%}
 </div>
 
 {%endblock%}
