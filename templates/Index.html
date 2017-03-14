@@ -1,4 +1,4 @@
-<!--Se hereda de la plantilla cuerpo para poder utilizarta y no
+  z<<!--Se hereda de la plantilla cuerpo para poder utilizarta y no
 copiar todo el codigo, se hereda tanto el esqueleto principal de html
 y los diseños css y imagenes-->
 {% extends 'plantillas/cuerpo.html'%}
@@ -7,12 +7,14 @@ y los diseños css y imagenes-->
 <!--Todo lo que se ponga en este apartado aparecera en el cuerpo de la
 plantilla de cuerpo.html,-->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
 
 
 <div id="publicaciones">
 {%for a in lista%}
 	<div class="publicacion">
-  {{a}}
+  		<h2>{{a[1]}}</h2>
+  		<p>{{a[2]}}</p>
 	</div>
 	{%endfor%}
 </div>

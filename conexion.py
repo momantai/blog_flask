@@ -1,5 +1,5 @@
 import MySQLdb
-datos=MySQLdb.connect("localhost","root","5fredy5","blog")
+datos=MySQLdb.connect("mysql2.paris1.alwaysdata.com","133991","momantai","momantaiter_blogflask")
 conexion=datos.cursor()
 
 def insertar():

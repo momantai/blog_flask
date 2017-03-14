@@ -8,19 +8,14 @@ app= Flask(__name__)
 @app.route('/')
 def principal():
     conectar=conexion.conexion
-    sql="SELECT * FROM publicacion"
-    conectar.execute(sql)
+    conectar.execute("SELECT * FROM publicacion")
     resutado=conectar.fetchall()
-    lista=[]
-    for registro in resutado:
-       idpublicacion=registro[0]
-       cuerpo=registro[1]
-       lista.append(cuerpo)
-    return render_template('Index.html',lista=lista)
+    
+    return render_template('Index.html',lista=resutado)
 
 @app.route('/publicacion')
 def publlicacion():
 	return render_template('Publicacion.html')
 
 if __name__=='__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
