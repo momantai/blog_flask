@@ -1,0 +1,13 @@
+{% extends 'plantillas/cuerpo.html'%}
+
+{%block cuerpo %}
+
+<div>
+	<form action="/add" method="POST">
+		<input id="titulo" type="text" name="titulo"><br><br>
+		<textarea id="cuerpo" name="cuerpo"></textarea><br><br>
+		<input type="submit" name="">
+	</form>
+</div>
+
+{%endblock%}
