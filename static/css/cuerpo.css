@@ -65,55 +65,6 @@ borde (para comprobar)*/
 	padding: 1px;
 }
 
-	#publicaciones{
-		float: left;
-		width: 600px;
-		//border:0.2px solid #ccc;
-		padding: 20px;
-
-		margin-bottom: 50px;
-	}
-/*
-		.publicacion{
-			float: left;
-			background-color: #fff;
-			width: 580;
-			border: 0.2px solid #ccc;
-			margin-bottom: 15px;
-
-			padding: 10px;
-		}
-			.publicacion a h3{
-				font-size: 18px;
-				font-family: Arial;
-				color: #DF0606;
-			}
-
-			.publicacion a {
-				text-decoration: none;
-			}
-
-			.publicacion a:hover h3{
-				color: red;
-			}
-
-			.publicacion p{
-				text-align: justify;
-				font-size: 14px;
-				font-family: Arial;
-				}
-
-	#cajasInformacion{
-		float: right;
-		width: 300px;
-		height: 300px;
-		border: 0.2px solid #ccc;
-		margin-top: 20px;
-		margin-bottom: 10px;
-		background-color: #fff;
-    text-align: center;
-	}
-*/
 
 
 

@@ -15,7 +15,10 @@ def principal():
 
 @app.route('/publicacion')
 def publlicacion():
-	return render_template('Publicacion.html')
+    idpublicacion = request.args.get('ID')#se recibe el parametro de la url de index.html para hacer la consulta y mostrar el contenido en la ventana.
+    conectar.execute("SELECT * FROM publicacion WHERE id=(%s)" % idpublicacion)
+    resultado=conectar.fetchall()
+    return render_template('Publicacion.html',resutado=resultado)
 
 @app.route('/publicar', methods=['POST', 'GET'])
 def publica():

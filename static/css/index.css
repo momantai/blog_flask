@@ -1,20 +1,21 @@
 #publicaciones{
-  float: left;
-  width: 600px;
+
+  width: 800px;
   border:0.2px solid #ccc;
   padding: 20px;
+  margin:0 auto;
 
-  margin-bottom: 50px;
 }
-	
+
 	.publicacion{
 		margin: 0 auto;
 		width: 550px;
 		border: 0.2px solid #ccc;
-		margin: 5px;
+		margin-bottom: 10px;
 		padding: 10px;
 
-	} 
+
+	}
 
 #pie{
 	width: 960px;

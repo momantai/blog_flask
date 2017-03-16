@@ -13,7 +13,7 @@ plantilla de cuerpo.html,-->
 <div id="publicaciones">
 {%for a in lista%}
 	<div class="publicacion">
-  		<h2>{{a[1]}}</h2>
+  		<a href="/publicacion?ID={{a[0]}}"><b>{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
   		<p>{{a[2]}}</p>
 	</div>
 	{%endfor%}
