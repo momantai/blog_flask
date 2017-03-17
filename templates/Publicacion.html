@@ -2,12 +2,13 @@
 
 {%block cuerpo %}
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/publicacion.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
 
 <div id="contenidoTotal">
 	<div id ="contenidoPub">
 		{%for texto in resutado%}<!--Se imprime el contenido de la consulta en el metodo publlicacion con el bucle for-->
-		<h3>{{texto[1]}}</h3>
-		<p>
+		<h3 id="tituloPub">{{texto[1]}}</h3>
+		<p id="cuerpoPub">
 		  {{texto[2]}}
 		</p>
 			{%endfor%}

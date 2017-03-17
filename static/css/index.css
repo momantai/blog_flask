@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 #publicaciones{
 
   width: 800px;
@@ -7,14 +8,28 @@
 
 }
 
-	.publicacion{
+	.publicacion{ 	
 		margin: 0 auto;
 		width: 550px;
 		border: 0.2px solid #ccc;
 		margin-bottom: 10px;
 		padding: 10px;
+	}
 
+	.publicacion a{
+		font-family: Raleway, bold;
+		font-weight: bold;
+		text-decoration: none;
+		color: #606060;
+	}
+	.publicacion a:hover{
+		color: #000
+	}
 
+	.publicacion p{
+		font-family: Raleway;
+		font-size: 15px;
+		text-align: justify;
 	}
 
 #pie{

@@ -9,7 +9,7 @@ conectar=conexion.conexion
 
 @app.route('/', methods=['POST', 'GET'])
 def principal():
-    conectar.execute("SELECT * FROM publicacion")
+    conectar.execute("SELECT * FROM publicacion ORDER BY id DESC limit 10")
     resutado=conectar.fetchall()
     return render_template('Index.html',lista=resutado)
 

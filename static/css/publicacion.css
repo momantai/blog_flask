@@ -1,9 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
 #contenidoTotal{
 	float: left;
 	width: 960px;
 	height: 500px;
-	//border: 0.2px solid #ccc;
-	//margin-bottom: 50px;
 	padding: 5px;
 
 	//background-color: white;
@@ -14,8 +14,20 @@
 		margin-bottom: 15px;
 		padding: 15px;
 		border: 0.2px solid #ccc;
-    text-align: center;
 		background-color: white;
+	}
+
+	#tituloPub{
+		text-transform: uppercase;
+		font-family: Raleway;
+		font-size: 24px;
+		font-weight: bold;
+		color: #606060;
+	}
+
+	#cuerpoPub{
+		font-family: Raleway;
+		text-align: justify;
 	}
 
 	#contenidoComment{
