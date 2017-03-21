@@ -17,7 +17,7 @@ body, html {
 	top: 0px;
 	left: 0px;
 	position: fixed;
-	background-color: #DF0606;
+	background-color: #43a4c3;
 	box-shadow: 2px 2px 5px #999;
 }
 	#icono{
@@ -25,34 +25,70 @@ body, html {
 		height: 40px;
 		//border: 0.1px solid #ccc;
 		float: left;
-
 		margin: 4px;
-		margin-left: 50px
+		margin-left: 20px
 	}
 
 		#imgIcon{
 			width: 40px;
 			position: relative;
 		}
-	#navegacion{
+    .controles{
+			float: left;;
+			width: 930px;
+     height: 50px;
+		 align-items: center;
+		background-color: #43a4c3;
+		}
+
+	#categorias{
 		float: right;
-		margin-right: 60px;
 		margin-top: 15px;
+		display: block;
+		list-style: none;
 	}
 
-		#navegacion a{
-			width: 50px
-			position: relative;
-			padding: 12px;
-			border: 0.2px solid #ccc;
-			text-decoration: none;
-			color: white;
-			background: gray;
-		}
+	#categorias li{
+   display: block;
+	 	float: left;
+	}
 
-		#navegacion a:hover{
-			background: black;
-		}
+	#categorias li a{
+		position: relative;
+		padding: 12px;
+		text-decoration: none;
+		color: white;
+	}
+
+	#categorias li a:hover{
+		background: black;
+		/*border: 0.2px solid #ccc;*/
+	}
+
+	#categorias li ul{
+		border-radius: 14px;
+		margin-top: 11px;
+		display: none;
+		position: absolute;
+		width:121px;
+		background-color: #43a4c3;
+	}
+
+
+		#categorias li ul li{
+    width:100%;
+    list-style:none;
+    display:block;
+	 }
+
+	 #categorias li ul li a{
+ 		color: white;
+    display:block;
+    padding:8px
+}
+		#categorias li:hover ul{
+	display:block;
+	}
 
 /*Ancho del contenedor, margenes (el primero lo mantiene en el centro de la pagina y el segundo es un margen de arriba)
 borde (para comprobar)*/
