@@ -19,6 +19,7 @@ body, html {
 	position: fixed;
 	background-color: #43a4c3;
 	box-shadow: 2px 2px 5px #999;
+	display: block;
 }
 	#icono{
 		width: 40px;

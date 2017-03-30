@@ -1,12 +1,20 @@
 {% extends 'plantillas/cuerpo.html'%}
 
 {%block cuerpo %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/publicar.css') }}">
 
-<div>
+<div id="publicar">
 	<form action="/add" method="POST">
-		<input id="titulo" type="text" name="titulo"><br><br>
-		<textarea id="cuerpo" name="cuerpo"></textarea><br><br>
-		<input type="submit" name="">
+		<input type="text" id="titulo" name="titulo">
+		<textarea id="publicacion" name="publicacion"></textarea><br><br>
+     <script>
+     	CKEDITOR.replace( 'publicacion' );
+		</script>
+		 <div class="botones">
+		 	<input type="submit" value="Aceptar" class="boton">
+		 </div>
 	</form>
 </div>
 

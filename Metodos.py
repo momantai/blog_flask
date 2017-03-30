@@ -26,7 +26,7 @@ def publica():
 
 @app.route('/add', methods=['POST'])
 def add_entry():
-    conectar.execute("INSERT INTO publicacion(titulo, cuerpo) values(%s, %s)", [request.form['titulo'], request.form['cuerpo']])
+    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria) values(%s, %s, 'computador', 'programas')", [request.form['titulo'], request.form['publicacion']])
     conexion.datos.commit()
     flash('Publicacion hecha')
     return redirect(url_for('principal'))
