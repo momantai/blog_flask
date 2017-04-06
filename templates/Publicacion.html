@@ -15,28 +15,24 @@
 	</div>
 
 	<div id="contenidoComment">
-		<form>
 			<table>
 				<tr>
+					<form action="addcoment?ID={{id}}" method="POST">
 					<td>
-						<textarea>
-
-						</textarea>
+						<textarea id="comentario" name="comentario"></textarea>
 					</td>
-
 					<td>
-						<button>
-							Enviar
-						</button>
+						<input type="submit" value="Enviar" class="boton">
 					</td>
+				</form>
 				</tr>
 			</table>
-		</form>
 	</div>
 
+{%for comentario in comentarios%}
 	<div id="comments">
-
+{{comentario[1]}}
 	</div>
-
+{%endfor%}
 
 {%endblock%}

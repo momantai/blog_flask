@@ -18,7 +18,10 @@ def publlicacion():
     idpublicacion = request.args.get('ID')#se recibe el parametro de la url de index.html para hacer la consulta y mostrar el contenido en la ventana.
     conectar.execute("SELECT * FROM publicacion WHERE id=(%s)" % idpublicacion)
     resultado=conectar.fetchall()
-    return render_template('Publicacion.html',resutado=resultado)
+
+    conectar.execute("SELECT * FROM comentarios WHERE idpublicacion=(%s)" %idpublicacion)
+    coments=conectar.fetchall()
+    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion)
 
 @app.route('/publicar', methods=['POST', 'GET'])
 def publica():
@@ -30,6 +33,13 @@ def add_entry():
     conexion.datos.commit()
     flash('Publicacion hecha')
     return redirect(url_for('principal'))
+
+@app.route('/addcoment', methods=['POST'])
+def add_comentario():
+    idpublicacion=request.args.get('ID')
+    conectar.execute("INSERT INTO comentarios(comentario,idpublicacion) values (%s, %s)",[request.form['comentario'],idpublicacion])
+    conexion.datos.commit()
+    return redirect("/publicacion?ID=%s" %idpublicacion)
 
 if __name__=='__main__':
     app.run(debug=True, port=5000)
