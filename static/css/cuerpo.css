@@ -34,10 +34,19 @@ body, html {
 		margin-left: 20px
 	}
 
-		#imgIcon{
+
+	#icoxn{
 			width: 40px;
-			position: relative;
-		}
+			height: 40px;
+			text-indent: -999px;
+			text-decoration: none;
+			background-repeat: no-repeat;
+			display: block;
+			background-image:url("../imagenes/icon_blog.png");
+			background-size: 40px;
+			overflow: hidden;
+	}
+
     .controles{
 			float: left;;
 			width: 930px;
@@ -93,6 +102,30 @@ body, html {
 }
 		#categorias li:hover ul{
 	display:block;
+	}
+
+#usuarioDentro{
+	margin: 0 auto;
+	margin-top: 15px;
+	margin-right: 30px;
+	float: right;
+	text-decoration: none;
+}
+
+	#usuarioDentro a{
+		color: #0000ff;
+		text-decoration: none;
+		padding: 10px;
+	}
+
+	#usuarioDentro a:hover{
+		color: #fff;
+		background: #3096B6;
+	}
+
+	#linkcentro{
+		margin-right: 10px;
+		margin-left: 10px;
 	}
 
 /*Ancho del contenedor, margenes (el primero lo mantiene en el centro de la pagina y el segundo es un margen de arriba)

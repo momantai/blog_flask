@@ -12,9 +12,9 @@ asi como el contenedor principal-->
 <body>
 
 	<div id="cabezera">
-		<div id="icono">
-			<a href="/"><img id="imgIcon" src="{{ url_for('static', filename='imagenes/icon_blog.png') }}"></a>
-		</div>
+		<a id="icono" href="/">
+			<span id="icoxn">StreetCode</span>
+		</a>
 		<div class="controles">
 		<ul id="categorias">
       <li><b><a href="/">INICIO</a></b></li>
@@ -57,10 +57,20 @@ asi como el contenedor principal-->
 		</div>
 
 		<div id="usuarioDentro">
-			{% if Hola != "" %}
-				<a href="#">{{Hola}}</a>
+		{# """
+
+			En esta sección hacemos comprobación si existe un usuario loguado, en caso de ser así
+			se le desplega el menu para usuarios loguados, en caso de que no, se le da la opcion
+			de registrarse o iniciar sesión para así acceder a la sección de usuarios.
+
+		""" #}
+			{% if sessionopen != "" %}
+				<a href="#">{{sessionopen}}</a>
+				<a href="/publicar" id="linkcentro">Publicar</a>
+				<a href="/logout">Salir</a>
 			{% else %}
-				<a href="#">No hay nada</a>
+				<a href="/login" id="primerlink">Iniciar Sesión</a>
+				<a href="#">Registrarme</a>
 			{% endif %}
 		</div>
 

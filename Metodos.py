@@ -13,34 +13,40 @@ def principal():
     xy = ""
     conectar.execute("SELECT * FROM publicacion ORDER BY id DESC limit 10")
     resutado=conectar.fetchall()
-    if 'username' in session:
+    if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
-    return render_template('Index.html',lista=resutado, Hola=xy)
+    return render_template('Index.html',lista=resutado, sessionopen=xy)
 
 
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    if 'username' in session:
+        return redirect(url_for("principal"))
     return render_template('login.html')
 @app.route('/logout')
 def logout():
+    #Elimina la sesion
     session.pop('username', None)
     return redirect(url_for("principal"))
 
 @app.route('/loginIn', methods=['POST'])
 def loginIn():
     verr = 0
+    #Obtiene los datos enviados desde el formulario de login.
     a = request.form['username']
     b = request.form['passworde']
-    conectar.execute("SELECT user FROM users WHERE user=(%s) and contrasenia=(%s)", [a, b])
-    respuesta = conectar.fetchall()
+    #Se conecta a la base de datos para verificar si el user y pass son correctos
+    conectar.execute("SELECT user FROM users WHERE user=(%s) or correo=(%s) and contrasenia=(%s)", [a, a, b])
+    respuesta = conectar.fetchone()
 
     for i in respuesta:
         verr = 1
 
     if verr == 1:
-        session['username'] = a
+        #De ser así abre una nueva sesión.
+        session['username'] = respuesta[0]
         return redirect(url_for("principal"))
     else:
         return "n"
@@ -60,14 +66,14 @@ def publlicacion():
     if 'username' in session:
         xy = escape(session['username'])
 
-    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion, Hola=xy)
+    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion, sessionopen=xy)
 
 @app.route('/publicar', methods=['POST', 'GET'])
 def publica():
     xy = ""
     if 'username' in session:
         xy = escape(session['username'])
-        return render_template('publicar.html', Hola=xy)
+        return render_template('publicar.html', sessionopen=xy)
     else:
         return redirect(url_for("login"))
     
