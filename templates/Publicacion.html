@@ -9,11 +9,11 @@
 		{%for texto in resutado%}<!--Se imprime el contenido de la consulta en el metodo publlicacion con el bucle for-->
 		<h3 id="tituloPub">{{texto[1]}}</h3>
 		<p id="cuerpoPub">
-		  {{texto[2]}}
+		  {{texto[2] | safe}}
 		</p>
 			{%endfor%}
 	</div>
-
+{% if Hola != ""%}
 	<div id="contenidoComment">
 			<table>
 				<tr>
@@ -28,11 +28,26 @@
 				</tr>
 			</table>
 	</div>
-
-{%for comentario in comentarios%}
-	<div id="comments">
-{{comentario[1]}}
+{%else%}
+	<div id="sugerenciaRegistro">
+		<h3> <a href="/login">Inciar sesión</a> para comentar ó Registrate para comentar. <a href="#">Registrarme</a></h3>
 	</div>
-{%endfor%}
+{% endif%}
+	<div id="comments">
+		{%for comentario in comentarios%}
+		<div class="commentario">
+			<a name="{{comentario[0]}}">
+			<table>
 
+				<td><img id="profile" src="{{ url_for('static', filename='imagenes/imageperfile.jpg') }}"></td>
+				<td><div class="ctrio">
+					<h4>{{comentario[0]}}</h4>
+					<p>{{comentario[1]}}</p>
+				</div>
+				</td>
+			</table>
+			</a>
+		</div>
+		{%endfor%}
+	</div>
 {%endblock%}

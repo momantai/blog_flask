@@ -1,6 +1,7 @@
 import conexion
 from flask import Flask, request, flash, redirect, url_for
 from flask import render_template
+from flask import session, escape
 
 
 app= Flask(__name__)
@@ -9,9 +10,43 @@ conectar=conexion.conexion
 
 @app.route('/', methods=['POST', 'GET'])
 def principal():
+    xy = ""
     conectar.execute("SELECT * FROM publicacion ORDER BY id DESC limit 10")
     resutado=conectar.fetchall()
-    return render_template('Index.html',lista=resutado)
+    if 'username' in session:
+        xy = escape(session['username'])
+    return render_template('Index.html',lista=resutado, Hola=xy)
+
+
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    return render_template('login.html')
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for("principal"))
+
+@app.route('/loginIn', methods=['POST'])
+def loginIn():
+    verr = 0
+    a = request.form['username']
+    b = request.form['passworde']
+    conectar.execute("SELECT user FROM users WHERE user=(%s) and contrasenia=(%s)", [a, b])
+    respuesta = conectar.fetchall()
+
+    for i in respuesta:
+        verr = 1
+
+    if verr == 1:
+        session['username'] = a
+        return redirect(url_for("principal"))
+    else:
+        return "n"
+
+
+
 
 @app.route('/publicacion')
 def publlicacion():
@@ -21,11 +56,21 @@ def publlicacion():
 
     conectar.execute("SELECT * FROM comentarios WHERE idpublicacion=(%s)" %idpublicacion)
     coments=conectar.fetchall()
-    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion)
+    xy = ""
+    if 'username' in session:
+        xy = escape(session['username'])
+
+    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion, Hola=xy)
 
 @app.route('/publicar', methods=['POST', 'GET'])
 def publica():
-	return render_template('publicar.html')
+    xy = ""
+    if 'username' in session:
+        xy = escape(session['username'])
+        return render_template('publicar.html', Hola=xy)
+    else:
+        return redirect(url_for("login"))
+    
 
 @app.route('/add', methods=['POST'])
 def add_entry():

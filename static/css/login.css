@@ -1,0 +1,70 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:600);
+body{
+	background-color: #FAFAFA; 
+	font-family: "Source Sans Pro";
+}
+#login{
+	background-color: white; 
+	width: 300px;
+	height: 250px;
+	border: solid 10px #43A4C3;
+	margin: 0 auto;
+	margin-top: 10%;
+	box-shadow: 2px 2px 5px #999;
+}
+
+#login:hover{
+	border: solid 10px #58C4E7;
+}
+
+h3{
+	text-align-last: center;
+
+}
+
+table {
+	margin: 0 auto;
+	margin-top: 15%; 
+}
+
+#linkregistro{
+	text-align: center;
+}
+
+#linkregistro a{
+	color: #0000ee;
+	text-decoration: none;
+}
+
+	#linkregistro a:hover{
+		color: #43A4C3;
+	}
+
+#username{
+	border-radius: 5px;
+	border:solid 1px #ccc;
+	color: #505050;
+	padding: 5px;
+}
+
+#username:focus{
+	outline: 0px;
+}
+#passworde{
+	border-radius: 5px;
+	border: solid 1px #ccc;
+	color: #505050;
+	padding: 5px;
+}
+
+#passworde:focus{
+	outline: 0px;
+}
+
+#entrar{
+	width: 50px;
+	border-radius: 5px;
+	border: solid 1px #ccc;
+	color: #5f5f5f;
+	padding: 5px;
+}

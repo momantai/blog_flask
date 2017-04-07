@@ -15,6 +15,7 @@
 		padding: 15px;
 		border: 0.2px solid #ccc;
 		background-color: white;
+		font-family: Raleway;
 	}
 
 	#tituloPub{
@@ -52,7 +53,7 @@
 			height: 50px;
 			padding: 15px;
 			margin-left: 10px;
-			margin-bottom: 10
+			margin-bottom: 10px;
 		}
 
 	#comments{
@@ -61,8 +62,35 @@
 		padding: 15px;
 		border: 0.2px solid #ccc;
 		margin-bottom: 50px;
+		background-color: white: 
+		//background-color: #43a4c3;
+	}
 
-		background-color: #43a4c3;
+		.commentario{
+			border-bottom: solid 1px #ccc;
+			padding: 15px;
+			font-family: Raleway;
+		}
+
+		.commentario img{
+			width: 43px;
+			border-radius: 50px;
+
+		}
+
+		.ctrio{
+			width: 750px;
+			border: solid 1px #ccc;
+			margin-left:10px;
+		}
+	#sugerenciaRegistro{
+		width: 850px;
+		margin: 0 auto;
+		margin-bottom: 15px; 
+		padding: 15px;
+		border: solid 0.2px #ccc;
+		background-color: white;
+		text-align-last: center;
 	}
 
 	.boton{

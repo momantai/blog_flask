@@ -1,4 +1,6 @@
 /*ESTRUCTURA PRINCIPAL*/
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:600);
+
 * {
 	margin: 0;
 	padding: 0;
@@ -20,6 +22,8 @@ body, html {
 	background-color: #43a4c3;
 	box-shadow: 2px 2px 5px #999;
 	display: block;
+	font-family: "Source Sans Pro";
+	z-index: 1;
 }
 	#icono{
 		width: 40px;
@@ -62,7 +66,7 @@ body, html {
 	}
 
 	#categorias li a:hover{
-		background: black;
+		background: #3096B6;
 		/*border: 0.2px solid #ccc;*/
 	}
 
