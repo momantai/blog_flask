@@ -8,6 +8,8 @@ app= Flask(__name__)
 app.secret_key = "super secret key"
 conectar=conexion.conexion
 
+
+#Area de direcciones o URL----------------------------------------------------------------------------------------------------------------------
 @app.route('/', methods=['POST', 'GET'])
 def principal():
     xy = ""
@@ -17,9 +19,46 @@ def principal():
         xy = escape(session['username'])
     return render_template('Index.html',lista=resutado, sessionopen=xy)
 
+@app.route('/publicacion')
+def publlicacion():
+    idpublicacion = request.args.get('ID')#se recibe el parametro de la url de index.html para hacer la consulta y mostrar el contenido en la ventana.
+    conectar.execute("SELECT * FROM publicacion WHERE id=(%s)" % idpublicacion)
+    resultado=conectar.fetchall()
+
+    conectar.execute("SELECT * FROM comentarios WHERE idpublicacion=(%s)" %idpublicacion)
+    coments=conectar.fetchall()
+    xy = ""
+    if 'username' in session:
+        xy = escape(session['username'])
+
+    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion, sessionopen=xy)
+
+@app.route('/publicar', methods=['POST', 'GET'])
+def publica():
+    xy = ""
+    if 'username' in session:
+        xy = escape(session['username'])
+        return render_template('publicar.html', sessionopen=xy)
+    else:
+        return redirect(url_for("login"))
 
 
+@app.route('/add', methods=['POST'])
+def add_entry():
+    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria) values(%s, %s, 'computador', 'programas')", [request.form['titulo'], request.form['publicacion']])
+    conexion.datos.commit()
+    flash('Publicacion hecha')
+    return redirect(url_for('principal'))
 
+@app.route('/addcoment', methods=['POST'])
+def add_comentario():
+    idpublicacion=request.args.get('ID')
+    conectar.execute("INSERT INTO comentarios(comentario,idpublicacion) values (%s, %s)",[request.form['comentario'],idpublicacion])
+    conexion.datos.commit()
+    return redirect("/publicacion?ID=%s" %idpublicacion)
+
+
+#Area del login y registro ------------------------------------------------------------------------------------------------------------------------
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if 'username' in session:
@@ -30,12 +69,6 @@ def loginOut():
 
 def a():
     return "Hola"
-
-@app.route('/logout')
-def logout():
-    #Elimina la sesion
-    session.pop('username', None)
-    return redirect(url_for("principal"))
 
 @app.route('/loginIn', methods=['POST'])
 def loginIn():
@@ -53,6 +86,12 @@ def loginIn():
         return redirect(url_for("principal"))
     else:
         return loginOut()
+
+@app.route('/logout')
+def logout():
+    #Elimina la sesion
+    session.pop('username', None)
+    return redirect(url_for("principal"))
 
 
 #Area de registro
@@ -78,44 +117,8 @@ def registrarOn():
         print("Mal")
         return "<b>mal</b>"
 
+#Futura Area de Perfil de usuario :v
 
-@app.route('/publicacion')
-def publlicacion():
-    idpublicacion = request.args.get('ID')#se recibe el parametro de la url de index.html para hacer la consulta y mostrar el contenido en la ventana.
-    conectar.execute("SELECT * FROM publicacion WHERE id=(%s)" % idpublicacion)
-    resultado=conectar.fetchall()
-
-    conectar.execute("SELECT * FROM comentarios WHERE idpublicacion=(%s)" %idpublicacion)
-    coments=conectar.fetchall()
-    xy = ""
-    if 'username' in session:
-        xy = escape(session['username'])
-
-    return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion, sessionopen=xy)
-
-@app.route('/publicar', methods=['POST', 'GET'])
-def publica():
-    xy = ""
-    if 'username' in session:
-        xy = escape(session['username'])
-        return render_template('publicar.html', sessionopen=xy)
-    else:
-        return redirect(url_for("login"))
-    
-
-@app.route('/add', methods=['POST'])
-def add_entry():
-    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria) values(%s, %s, 'computador', 'programas')", [request.form['titulo'], request.form['publicacion']])
-    conexion.datos.commit()
-    flash('Publicacion hecha')
-    return redirect(url_for('principal'))
-
-@app.route('/addcoment', methods=['POST'])
-def add_comentario():
-    idpublicacion=request.args.get('ID')
-    conectar.execute("INSERT INTO comentarios(comentario,idpublicacion) values (%s, %s)",[request.form['comentario'],idpublicacion])
-    conexion.datos.commit()
-    return redirect("/publicacion?ID=%s" %idpublicacion)
-
+#-------------------------------------------------------------------------------------------------------------------------------------------------
 if __name__=='__main__':
     app.run(debug=True, port=5000)
