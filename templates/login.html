@@ -7,17 +7,29 @@
 
 </head>
 <body>
+	{% if xerror == True %}
+		<style type="text/css">
+			#login{
+				border: solid 10px #ff0000;
+			}
+
+			#login:hover{
+				border: solid 10px #FF3C3C;
+			}
+		</style>
+	{% endif %}
 	<div id="login">
 	<h3 id="tit">Iniciar Sesión</h3>
+
 		<form action="/loginIn" method="POST">
 			<table>
 				<tr>
 					<td><label for="username">Usuario</label></td>
-					<td><input type="text" name="username" id="username" placeholder="Correo o usuario"></td>
+					<td><input type="text" name="username" id="username" placeholder="Correo o usuario" required></td>
 				</tr>
 				<tr>
 					<td><label for="passworde">Contraseña</label></td>
-					<td><input type="password" name="passworde" id="passworde" placeholder="Contraseña"></td>
+					<td><input type="password" name="passworde" id="passworde" placeholder="Contraseña" required></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -25,7 +37,7 @@
 				</tr>
 			</table>
 		</form>
-		<p id="linkregistro">¿No tienes cuenta aún? <a href="#">Registrate</a></p>	
+		<p id="linkregistro">¿No tienes cuenta aún? <a href="/register">Registrate</a></p>	
 	</div>
 </body>
 </html>

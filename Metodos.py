@@ -25,6 +25,12 @@ def login():
     if 'username' in session:
         return redirect(url_for("principal"))
     return render_template('login.html')
+def loginOut():
+    return render_template('login.html', xerror=True)
+
+def a():
+    return "Hola"
+
 @app.route('/logout')
 def logout():
     #Elimina la sesion
@@ -38,20 +44,39 @@ def loginIn():
     a = request.form['username']
     b = request.form['passworde']
     #Se conecta a la base de datos para verificar si el user y pass son correctos
-    conectar.execute("SELECT user FROM users WHERE user=(%s) or correo=(%s) and contrasenia=(%s)", [a, a, b])
+    conectar.execute("SELECT user FROM users WHERE user=(%s) and contrasenia=(%s) or correo=(%s) and contrasenia=(%s)", [a, b, a, b])
     respuesta = conectar.fetchone()
 
-    for i in respuesta:
-        verr = 1
-
-    if verr == 1:
+    if respuesta != None:
         #De ser así abre una nueva sesión.
         session['username'] = respuesta[0]
         return redirect(url_for("principal"))
     else:
-        return "n"
+        return loginOut()
 
 
+#Area de registro
+@app.route('/register')
+def registrar():
+    return render_template('registrar.html')
+
+@app.route('/registerOn', methods=['POST'])
+def registrarOn():
+    a = request.form['nombre']
+    b = request.form['apellido']
+    c = request.form['usuario']
+    d = request.form['correo']
+    e = request.form['contrasenia']
+
+    conectar.execute("SELECT user FROM users WHERE user=(%s) or correo=(%s)", [c, d])
+    respuesta = conectar.fetchone()
+
+    if respuesta == None:
+        print("Bien")
+        return "<b>bien</b>"
+    else:
+        print("Mal")
+        return "<b>mal</b>"
 
 
 @app.route('/publicacion')

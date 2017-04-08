@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registrar | StreetCode</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../static/css/registrar.css">
+</head>
+<body>
+	<div id="registro">
+
+		<span><p>BIENVENIDO</p></span>
+
+		<form action="/registerOn" method="POST">
+			<table>
+				<tr>
+					<td><input class="inputsrg" type="text" name="nombre" placeholder="Nombre" required></td>
+				</tr>
+				<tr>
+					<td><input class="inputsrg" type="text" name="apellido" placeholder="Apellidos" required></td>
+				</tr>
+				<tr>
+					<td><input class="inputsrg" type="text" name="usuario" placeholder="Nuevo usuario" required></td>
+				</tr>
+				<tr>
+					<td><input class="inputsrg" type="email" name="correo" placeholder="Correo electronico" required></td>
+				</tr>
+				<tr>
+					<td><input class="inputsrg" type="password" name="contrasenia" placeholder="Nueva contraseña" required></td>
+				</tr>
+				<tr>
+					<td><input id="enviar" type="submit" name="enviar" value="Registrar"></td>
+				</tr>
+			</table>
+		</form>
+		<span id="spanx"><p>Ya tengo cuenta <a href="/login">Inciar sesión</a>.</p></span>
+	</div>
+</body>
+</html>

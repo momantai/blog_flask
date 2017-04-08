@@ -2,7 +2,7 @@
 
 {%block cuerpo %}
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/publicacion.css') }}">
-	<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
+	<!--<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>-->
 
 <div id="contenidoTotal">
 	<div id ="contenidoPub">
@@ -30,7 +30,7 @@
 	</div>
 {%else%}
 	<div id="sugerenciaRegistro">
-		<h3> <a href="/login">Inciar sesión</a> para comentar ó Registrate para comentar. <a href="#">Registrarme</a></h3>
+		<h3> <a href="/login">Inciar sesión</a> para comentar ó Registrate para comentar. <a href="/register">Registrarme</a></h3>
 	</div>
 {% endif%}
 	<div id="comments">

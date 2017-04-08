@@ -7,7 +7,7 @@ asi como el contenedor principal-->
 <head>
 	<title>Index</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/cuerpo.css') }}">
-	 <script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>
+	 <!--<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>-->
 </head>
 <body>
 
@@ -70,7 +70,7 @@ asi como el contenedor principal-->
 				<a href="/logout">Salir</a>
 			{% else %}
 				<a href="/login" id="primerlink">Iniciar Sesión</a>
-				<a href="#">Registrarme</a>
+				<a href="/register">Registrarme</a>
 			{% endif %}
 		</div>
 
