@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+#infoUser {
+	background-color: #fff;
+	width: 750px;
+	min-height: 160px;
+	margin: 0 auto;
+	border: solid 1px #ccc;
+	display: flex;
+}
+
+#imgProfile {
+	width: 130px;
+	height: 130px;
+	margin-top: 13px;
+	margin-left: 18px;
+	border-radius: 100%;
+	border: solid 1px #ccc;
+
+	overflow: hidden;
+}
+
+#imgProfile:hover{
+	margin-top: 12px;
+	margin-left: 17px; 
+	cursor: pointer;
+	box-shadow: 0px 2px 3px;
+}
+
+#imgProfile img {
+	max-width: 140px;
+}
+
+#nameUser {
+	width: 400px;
+	height: 30px;
+	margin-top: 36px;
+	margin-left: 180px;
+	padding-left: 12px;
+	font-family: "Raleway";
+	font-size: 14px;
+	position: absolute;
+	border-bottom: solid 1px #ccc;
+	display: flex;
+}
+
+#verified {
+	width: 20px;
+	height: 20px;
+	position: relative;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	//border: solid 1px #ccc;
+	border-radius: 100%;
+	background-image: url('../imagenes/icon.svg');
+	background-size: 20px;
+}
+#verified:hover{
+	cursor: pointer;
+	background-color: #E4E4E4;
+}
+
+#frase {
+	position: absolute;
+	width: 400px;
+	margin-top: 75px;
+	margin-left: 185px;
+	font-family: "Raleway";
+}

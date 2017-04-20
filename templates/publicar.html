@@ -6,15 +6,92 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/publicar.css') }}">
 
 <div id="publicar">
-	<form action="/add" method="POST">
-		<input type="text" id="titulo" name="titulo">
-		<textarea id="publicacion" name="publicacion"></textarea><br><br>
+	<form action="/add" enctype="multipart/form-data" method="POST">
+	<table>
+		<td><input type="text" id="titulo" name="titulo" placeholder="Titulo de la publicacion" required></td>
+		<td><input type="submit" value="Publicar" class="boton"></td>
+	</table>
+		<br>
+		<label for="file">Elegir una imagen portada</label> <input type="file" name="file" id="portada" required>
+		<textarea id="publicacion" name="publicacion" required=""></textarea><br><br>
      	<script>
      		CKEDITOR.replace( 'publicacion' );
 		</script>
-		 <div class="botones">
-		 	<input type="submit" value="Aceptar" class="boton">
-		 </div>
+
+		<label for="categoria">Categoria</label><br><select id="optionss" name="categoria" onchange="elegirasi()" required>
+			<option></option>
+			<option value="1">Programación</option>
+			<option value="2">Sistemas Operativos</option>
+			<option value="3">Redes</option>
+			<option value="4">Herramientas</option>
+			<option value="5">Hardware</option>
+		</select>
+		<br><label for="subcategoria">Subcategoria</label><select id="program" name="cat1" style="display: none;">
+			<option></option>
+			<option value="C">C</option>
+			<option value="CSharp">C#</option>
+			<option value="CPlusPlus">C++</option>
+			<option value="Java">Java</option>
+			<option value="Ruby">Ruby</option>
+			<option value="PHP">PHP</option>
+			<option value="Python">Python</option>
+		</select>
+		<select id="so" name="cat2" style="display: none;" >
+			<option></option>
+			<option value="Linux">GNU/Linux</option>
+			<option value="Windows">Windows</option>
+			<option value="MacOs">MacOs</option>
+		</select>
+		<select id="redes" name="cat3" style="display: none;" >
+			<option></option>
+			<option value="Cisco">Cisco</option>
+		</select>
+		<select id="herramientas" name="cat4" style="display: none;" >
+			<option></option>
+			<option value="Editores">Editor de texto</option>
+		</select>
+		<select id="hardware" name="cat5" style="display: none;" >
+			<option></option>
+			<option value="Procesadores">Procesadores</option>
+			<option value="Tarjetas Madre">Tarjetas Madre</option>
+		</select>
+
+		<script>
+		    function elegirasi() {
+		        var a = document.getElementById("optionss").value;
+		        if (a == 1) {
+		        	document.getElementById("program").style.cssText = "display: block";
+		        	document.getElementById("so").style.cssText = "display: none";
+		        	document.getElementById("redes").style.cssText = "display: none";
+		        	document.getElementById("herramientas").style.cssText = "display: none";
+		        	document.getElementById("hardware").style.cssText = "display: none";
+		        } else if (a == 2) {
+		        	document.getElementById("program").style.cssText = "display: none";
+		        	document.getElementById("so").style.cssText = "display: block";
+		        	document.getElementById("redes").style.cssText = "display: none";
+		        	document.getElementById("herramientas").style.cssText = "display: none";
+		        	document.getElementById("hardware").style.cssText = "display: none";
+		        } else if (a == 3) {
+		        	document.getElementById("program").style.cssText = "display: none";
+		        	document.getElementById("so").style.cssText = "display: none";
+		        	document.getElementById("redes").style.cssText = "display: block";
+		        	document.getElementById("herramientas").style.cssText = "display: none";
+		        	document.getElementById("hardware").style.cssText = "display: none";
+		        } else if (a == 4) {
+		        	document.getElementById("program").style.cssText = "display: none";
+		        	document.getElementById("so").style.cssText = "display: none";
+		        	document.getElementById("redes").style.cssText = "display: none";
+		        	document.getElementById("herramientas").style.cssText = "display: block";
+		        	document.getElementById("hardware").style.cssText = "display: none";
+		        } else if (a == 5) {
+		        	document.getElementById("program").style.cssText = "display: none";
+		        	document.getElementById("so").style.cssText = "display: none";
+		        	document.getElementById("redes").style.cssText = "display: none";
+		        	document.getElementById("herramientas").style.cssText = "display: none";
+		        	document.getElementById("hardware").style.cssText = "display: block";
+		        }
+		    }
+		</script>
 	</form>
 </div>
 

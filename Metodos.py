@@ -3,9 +3,17 @@ from flask import Flask, request, flash, redirect, url_for
 from flask import render_template
 from flask import session, escape
 
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+photos = UploadSet('photos', IMAGES)
+
 
 app= Flask(__name__)
 app.secret_key = "super secret key"
+
+#Configuración para cargar imagenes
+app.config['UPLOADED_PHOTOS_DEST'] = "static/imagenes"
+configure_uploads(app, photos)
+
 conectar=conexion.conexion
 
 
@@ -18,6 +26,39 @@ def principal():
     if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
     return render_template('Index.html',lista=resutado, sessionopen=xy)
+
+#Ruta de direcciones para entrar al perfil de algún usuario con su nombre de usuario de manera "+nameUser"
+@app.route('/+<user>', methods=['POST', 'GET'])
+def usuario(user):
+    #PD. Aun no hace nada por que aun se esta haciendo el html, pero ya se comprobo que funciona la url.
+    conectar.execute("SELECT idUser, user, correo FROM users WHERE user = (%s);", [user])
+    resultado = conectar.fetchall()
+
+    xy = ""
+    if 'username' in session: #Verifica si hay un usuario en sesion
+        xy = escape(session['username'])
+
+    return render_template("user.html", sessionopen=xy)
+
+@app.route('/<categoria>/<subcategoria>')
+def categorias(categoria, subcategoria):
+    conectar.execute("SELECT * FROM publicacion WHERE Categoria = (%s) and SubCategoria = (%s);", [[categoria], [subcategoria]])
+    resultado = conectar.fetchall()
+
+    xy = ""
+    if 'username' in session: #Verifica si hay un usuario en sesion
+        xy = escape(session['username'])
+    return render_template("cat.html", sessionopen=xy, lista=resultado)
+
+@app.route('/<categoria>')
+def categoria(categoria):
+    conectar.execute("SELECT * FROM publicacion WHERE Categoria = (%s);", [categoria])
+    resultado = conectar.fetchall()
+
+    xy = ""
+    if 'username' in session: #Verifica si hay un usuario en sesion
+        xy = escape(session['username'])
+    return render_template("cat.html", sessionopen=xy, lista=resultado)
 
 @app.route('/publicacion')
 def publlicacion():
@@ -45,9 +86,33 @@ def publica():
 
 @app.route('/add', methods=['POST'])
 def add_entry():
-    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria) values(%s, %s, 'computador', 'programas')", [request.form['titulo'], request.form['publicacion']])
+    #Aquí obtenemos el archivo por metodo POST y es almacenado en la carpeta configurada para almacenar las imagenes.
+    #También recogemos el valor de la ruta para ser alcacenada en base de datos.
+    f = photos.save(request.files['file'])
+
+    subCat = ""
+    #HUbo un probema con la elección de las subcategorias que fue resulto de esta manera if-else
+    if request.form["categoria"]=="1":
+        subCat = request.form['cat1']
+    elif request.form["categoria"]=="2":
+        subCat = request.form['cat2']
+    elif request.form["categoria"]=="3":
+        subCat = request.form['cat3']
+    elif request.form["categoria"]=="4":
+        subCat = request.form['cat4']
+    elif request.form["categoria"]=="5":
+        subCat = request.form['cat5']
+    else:
+        subCat = ""
+
+    #PD. Se agrego la categoria y subcategoria.
+    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria, portada) values(%s, %s, %s, %s, %s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'], request.form['subcategoria'],[f]])
     conexion.datos.commit()
     flash('Publicacion hecha')
+
+    print(request.form['categoria'])
+    print(subCat)
+
     return redirect(url_for('principal'))
 
 @app.route('/addcoment', methods=['POST'])

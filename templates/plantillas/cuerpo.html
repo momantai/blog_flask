@@ -18,38 +18,38 @@ asi como el contenedor principal-->
 		<div class="controles">
 		<ul id="categorias">
       <li><b><a href="/">INICIO</a></b></li>
-			<li><b><a href="/">Programacion</a></b>
+			<li><b><a href="/1">Programacion</a></b>
 				<ul>
-					<li><b><a href="/">C</a></b></li>
-					<li><b><a href="/">C#</a></b></li>
-					<li><b><a href="/">C++</a></b></li>
-					<li><b><a href="/">JAVA</a></b></li>
-					<li><b><a href="/">Ruby</a></b></li>
-					<li><b><a href="/">PHP</a></b></li>
-					<li><b><a href="/">Python</a></b></li>
+					<li><b><a href="/1/C">C</a></b></li>
+					<li><b><a href="/1/CSharp">C#</a></b></li>
+					<li><b><a href="/1/CPlusPlus">C++</a></b></li>
+					<li><b><a href="/1/Java">JAVA</a></b></li>
+					<li><b><a href="/1/Ruby">Ruby</a></b></li>
+					<li><b><a href="/1/PHP">PHP</a></b></li>
+					<li><b><a href="/1/Python">Python</a></b></li>
 				</ul>
 			</li>
-			<li><b><a href="/">Sistemas operativos</a></b>
+			<li><b><a href="/2">Sistemas operativos</a></b>
 				<ul>
-					<li><b><a href="/">GNU/Linux</a></b></li>
-					<li><b><a href="/">Windows</a></b></li>
-					<li><b><a href="/">Mac-os</a></b></li>
+					<li><b><a href="/2/Linux">GNU/Linux</a></b></li>
+					<li><b><a href="/2/Windows">Windows</a></b></li>
+					<li><b><a href="/2/MacOs">Mac-os</a></b></li>
 				</ul>
 			</li>
-			<li><b><a href="/">Redes</a></b>
+			<li><b><a href="/3">Redes</a></b>
         <ul>
-					<li><b><a href="/">Cisco</a></b></li>
+					<li><b><a href="/3/Cisco">Cisco</a></b></li>
 				</ul>
 			</li>
-			<li><b><a href="/">Herramientas</a></b>
+			<li><b><a href="/4">Herramientas</a></b>
         <ul>
-					<li><b><a href="/">Editores de texto</a></b></li>
+					<li><b><a href="/4/Editores">Editores de texto</a></b></li>
 				</ul>
 			</li>
-			<li><b><a href="/">Hardware</a></b>
+			<li><b><a href="/5">Hardware</a></b>
         <ul>
-        	<li><b><a href="/">Procesadores</a></b></li>
-					<li><b><a href="/">Tarjetas Madre</a></b></li>
+        	<li><b><a href="/5/Procesadores">Procesadores</a></b></li>
+					<li><b><a href="/5/Tarjetas Madre">Tarjetas Madre</a></b></li>
         </ul>
 			</li>
 		</ul>
@@ -65,7 +65,7 @@ asi como el contenedor principal-->
 
 		""" #}
 			{% if sessionopen != "" %}
-				<a href="#">{{sessionopen}}</a>
+				<a href="/+{{sessionopen}}">{{sessionopen}}</a>
 				<a href="/publicar" id="linkcentro">Publicar</a>
 				<a href="/logout">Salir</a>
 			{% else %}

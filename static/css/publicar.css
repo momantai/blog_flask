@@ -1,6 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 #publicar{
   margin: 0 auto;
   align-items: center;
+}
+
+#titulo{
+	width: 280px;
+	margin-bottom: 15px;
+	padding: 5px;
+	font-family: "Raleway";
+}
+
+label{
+	font-family: "Raleway";
+}
+
+#portada{
+	width: 280px;
+	margin-bottom: 15px;
+	padding: 5px;
+}
+
+select{
+	width: 280px;
+	margin-bottom: 15px;
+	padding: 5px;
+	font-family: "Raleway";
 }
 
 .botones{
@@ -10,6 +35,13 @@
 .boton{
   width: 100px;
   height: 30px;
+  border:none;
+  margin-bottom: 15px;
+}
+
+.boton:hover{
+	cursor: pointer;
+	background-color: #8CC7FF;
 }
 
 #cke_publicacion{

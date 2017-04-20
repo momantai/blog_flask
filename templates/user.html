@@ -1,0 +1,23 @@
+{% extends 'plantillas/cuerpo.html' %}
+
+{% block cuerpo %}
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/user.css')}}">
+
+
+<!-- En esta sección encontramos la información de un usuario unico -->
+<section id="infoUser">
+	<section id="imgProfile">
+		<img src="{{url_for('static', filename='imagenes/imageperfile.jpg')}}">
+	</section>
+
+	<section id="nameUser">
+		<h2>Alex Momantai</h2>
+		<div id="verified" title="verificado"></div>
+	</section>
+	<section id="frase">
+			<p>Soy estudiante de Ing. en Computación, mi pastiempo simplemente perder el tiempo y cosas así.</p>
+	</section>
+</section>
+
+
+{% endblock %}
