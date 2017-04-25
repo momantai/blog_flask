@@ -126,9 +126,12 @@ def add_entry():
     else:
         subCat = ""
 
+    print(request.form['categoria'])
+    print(subCat)
+
     #PD. Se agrego la categoria y subcategoria.
-    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria, portada) values(%s, %s, %s, %s, %s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'], request.form['subcategoria'],[f]])
-    conexion.datos.commit()
+    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria, portada) values(%s, %s, %s, %s, %s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'], subCat, [f]])
+    mysql.connection.commit()
     flash('Publicacion hecha')
 
     print(request.form['categoria'])
@@ -142,7 +145,7 @@ def add_comentario():
 
     idpublicacion=request.args.get('ID')
     conectar.execute("INSERT INTO comentarios(comentario,idpublicacion) values (%s, %s)",[request.form['comentario'],idpublicacion])
-    conexion.datos.commit()
+    mysql.connection.commit()
     return redirect("/publicacion?ID=%s" %idpublicacion)
 
 
