@@ -23,7 +23,7 @@ body, html {
 	box-shadow: 2px 2px 5px #999;
 	display: block;
 	font-family: "Source Sans Pro";
-	z-index: 1;
+	z-index: 2;
 }
 	#icono{
 		width: 40px;
