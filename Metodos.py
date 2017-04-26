@@ -139,6 +139,18 @@ def add_entry():
 
     return redirect(url_for('principal'))
 
+@app.route('/deletePub')
+def deletePub():
+    conectar = mysql.connection.cursor()
+
+    id = request.args.get('pub')
+    conectar.execute("DELETE FROM comentarios WHERE idPublicacion = (%s)", [id]);
+    mysql.connection.commit()
+    conectar.execute("DELETE FROM publicacion WHERE id = (%s)", [id]);
+    mysql.connection.commit()
+
+    return redirect("/")
+
 @app.route('/addcoment', methods=['POST'])
 def add_comentario():
     conectar = mysql.connection.cursor()
