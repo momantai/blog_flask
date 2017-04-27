@@ -4,8 +4,7 @@ from flask import render_template
 from flask import session, escape
 import time
 from flask_mysqldb import MySQL
-import hashlib
-
+import encriptacion
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 photos = UploadSet('photos', IMAGES)
 
@@ -17,7 +16,6 @@ app.config['MYSQL_HOST'] = "mysql2.paris1.alwaysdata.com"
 app.config['MYSQL_USER'] = "133991"
 app.config['MYSQL_PASSWORD'] = "momantai"
 app.config['MYSQL_DB'] = "momantaiter_blogflask"
-
 mysql = MySQL(app)
 
 #Configuración para cargar imagenes
@@ -25,11 +23,7 @@ app.config['UPLOADED_PHOTOS_DEST'] = "static/imagenes"
 configure_uploads(app, photos)
 
 #Función para encriptar
-def encriptr(texto):
-    enc = str.encode(texto)
-    h = hashlib.sha1(enc)
-
-    return h.hexdigest()
+encriptar=encriptacion.encriptr
 
 
 #Area de direcciones o URL----------------------------------------------------------------------------------------------------------------------
@@ -49,14 +43,13 @@ def usuario(user):
     conectar = mysql.connection.cursor()
 
     #PD. Aun no hace nada por que aun se esta haciendo el html, pero ya se comprobo que funciona la url.
-    conectar.execute("SELECT idUsuario, user FROM Usuario WHERE user = (%s);", [user])
+    conectar.execute("SELECT * FROM  Usuario INNER JOIN  Usuario_datos ON  Usuario_datos_idUsuario_datos = idUsuario_datos WHERE user =(%s);", [user])
     resultado = conectar.fetchall()
-
     xy = ""
     if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
 
-    return render_template("user.html", sessionopen=xy)
+    return render_template("user.html", sessionopen=xy, datos=resultado)
 
 @app.route('/<categoria>/<subcategoria>')
 def categorias(categoria, subcategoria):
@@ -186,7 +179,7 @@ def loginIn():
     verr = 0
     #Obtiene los datos enviados desde el formulario de login.
     a = request.form['username']
-    b = encriptr(request.form['passworde'])
+    b = encriptar(request.form['passworde'])
     #Se conecta a la base de datos para verificar si el user y pass son correctos
     conectar.execute("SELECT idUsuario,user FROM Usuario WHERE user=(%s) and password=(%s) or idUsuario=(%s) and password=(%s)", [a, b, a, b])
     respuesta = conectar.fetchone()
@@ -220,7 +213,7 @@ def registrarOn():
     b = request.form['apellido']
     c = request.form['usuario']
     d = request.form['correo']
-    e = encriptr(request.form['contrasenia'])
+    e = encriptar(request.form['contrasenia'])
     x = "T"
 
     conectar.execute("SELECT user FROM Usuario WHERE user=(%s) or idUsuario=(%s)", [c, d])
