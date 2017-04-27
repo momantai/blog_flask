@@ -30,7 +30,7 @@ def principal():
     conectar = mysql.connection.cursor()
     
     xy = ""
-    conectar.execute("SELECT * FROM publicacion ORDER BY id DESC limit 10")
+    conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
     resutado=conectar.fetchall()
     if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
@@ -42,7 +42,7 @@ def usuario(user):
     conectar = mysql.connection.cursor()
 
     #PD. Aun no hace nada por que aun se esta haciendo el html, pero ya se comprobo que funciona la url.
-    conectar.execute("SELECT idUser, user, correo FROM users WHERE user = (%s);", [user])
+    conectar.execute("SELECT idUsuario, user FROM Usuario WHERE user = (%s);", [user])
     resultado = conectar.fetchall()
 
     xy = ""
@@ -55,7 +55,7 @@ def usuario(user):
 def categorias(categoria, subcategoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("SELECT * FROM publicacion WHERE Categoria = (%s) and SubCategoria = (%s);", [[categoria], [subcategoria]])
+    conectar.execute("SELECT * FROM Publicacion WHERE categoria = (%s) and subCategoria = (%s);", [[categoria], [subcategoria]])
     resultado = conectar.fetchall()
 
     xy = ""
@@ -67,7 +67,7 @@ def categorias(categoria, subcategoria):
 def categoria(categoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("SELECT * FROM publicacion WHERE Categoria = (%s);", [categoria])
+    conectar.execute("SELECT * FROM Publicacion WHERE categoria = (%s);", [categoria])
     resultado = conectar.fetchall()
 
     xy = ""
@@ -80,10 +80,10 @@ def publlicacion():
     conectar = mysql.connection.cursor()
 
     idpublicacion = request.args.get('ID')#se recibe el parametro de la url de index.html para hacer la consulta y mostrar el contenido en la ventana.
-    conectar.execute("SELECT * FROM publicacion WHERE id=(%s)" % idpublicacion)
+    conectar.execute("SELECT * FROM Publicacion WHERE idPublicacion = (%s)" % idpublicacion)
     resultado=conectar.fetchall()
 
-    conectar.execute("SELECT * FROM comentarios WHERE idpublicacion=(%s)" %idpublicacion)
+    conectar.execute("SELECT * FROM Comentario WHERE Publicacion_idPublicacionC = (%s)" %idpublicacion)
     coments=conectar.fetchall()
     xy = ""
     if 'username' in session:
@@ -130,7 +130,7 @@ def add_entry():
     print(subCat)
 
     #PD. Se agrego la categoria y subcategoria.
-    conectar.execute("INSERT INTO publicacion(titulo, cuerpo, Categoria, SubCategoria, portada) values(%s, %s, %s, %s, %s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'], subCat, [f]])
+    conectar.execute("INSERT INTO Publicacion(titulo, cuerpo, categoria, subCategoria, portada) values(%s, %s, %s, %s, %s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'], subCat, [f]])
     mysql.connection.commit()
     flash('Publicacion hecha')
 
@@ -144,9 +144,9 @@ def deletePub():
     conectar = mysql.connection.cursor()
 
     id = request.args.get('pub')
-    conectar.execute("DELETE FROM comentarios WHERE idPublicacion = (%s)", [id]);
+    conectar.execute("DELETE FROM Comentario WHERE Publicacion_idPublicacionC = (%s)", [id]);
     mysql.connection.commit()
-    conectar.execute("DELETE FROM publicacion WHERE id = (%s)", [id]);
+    conectar.execute("DELETE FROM Publicacion WHERE idPublicacion = (%s)", [id]);
     mysql.connection.commit()
 
     return redirect("/")
@@ -156,7 +156,7 @@ def add_comentario():
     conectar = mysql.connection.cursor()
 
     idpublicacion=request.args.get('ID')
-    conectar.execute("INSERT INTO comentarios(comentario,idpublicacion) values (%s, %s)",[request.form['comentario'],idpublicacion])
+    conectar.execute("INSERT INTO Comentario(comentario, Publicacion_idPublicacionC) values (%s, %s)",[request.form['comentario'],idpublicacion])
     mysql.connection.commit()
     return redirect("/publicacion?ID=%s" %idpublicacion)
 
@@ -182,7 +182,7 @@ def loginIn():
     a = request.form['username']
     b = request.form['passworde']
     #Se conecta a la base de datos para verificar si el user y pass son correctos
-    conectar.execute("SELECT user FROM users WHERE user=(%s) and contrasenia=(%s) or correo=(%s) and contrasenia=(%s)", [a, b, a, b])
+    conectar.execute("SELECT user FROM Usuario WHERE user=(%s) and password=(%s) or idUsuario=(%s) and password=(%s)", [a, b, a, b])
     respuesta = conectar.fetchone()
 
     if respuesta != None:
@@ -214,7 +214,7 @@ def registrarOn():
     d = request.form['correo']
     e = request.form['contrasenia']
 
-    conectar.execute("SELECT user FROM users WHERE user=(%s) or correo=(%s)", [c, d])
+    conectar.execute("SELECT user FROM Usuario WHERE user=(%s) or idUsuario=(%s)", [c, d])
     respuesta = conectar.fetchone()
 
     if respuesta == None:
