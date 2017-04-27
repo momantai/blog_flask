@@ -93,6 +93,11 @@
 			border: solid 1px #ccc;
 			margin-left:10px;
 		}
+
+		.ctrio h4:hover {
+			cursor: pointer;
+			text-decoration-line: underline;
+		}
 	#sugerenciaRegistro{
 		width: 850px;
 		margin: 0 auto;

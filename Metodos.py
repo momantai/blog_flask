@@ -4,6 +4,7 @@ from flask import render_template
 from flask import session, escape
 import time
 from flask_mysqldb import MySQL
+import hashlib
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 photos = UploadSet('photos', IMAGES)
@@ -22,6 +23,13 @@ mysql = MySQL(app)
 #Configuración para cargar imagenes
 app.config['UPLOADED_PHOTOS_DEST'] = "static/imagenes"
 configure_uploads(app, photos)
+
+#Función para encriptar
+def encriptr(texto):
+    enc = str.encode(texto)
+    h = hashlib.sha1(enc)
+
+    return h.hexdigest()
 
 
 #Area de direcciones o URL----------------------------------------------------------------------------------------------------------------------
@@ -82,7 +90,7 @@ def publlicacion():
     conectar.execute("SELECT * FROM Publicacion WHERE idPublicacion = (%s)" % idpublicacion)
     resultado=conectar.fetchall()
 
-    conectar.execute("SELECT * FROM Comentario WHERE Publicacion_idPublicacionC = (%s)" %idpublicacion)
+    conectar.execute("SELECT Nombre, user, comentario FROM Comentario INNER JOIN Usuario ON Usuario.idUsuario = Comentario.Usuario_idUsuarioC INNER JOIN Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos WHERE Publicacion_idPublicacionC = (%s)" %idpublicacion)
     coments=conectar.fetchall()
     xy = ""
     if 'username' in session:
@@ -178,7 +186,7 @@ def loginIn():
     verr = 0
     #Obtiene los datos enviados desde el formulario de login.
     a = request.form['username']
-    b = request.form['passworde']
+    b = encriptr(request.form['passworde'])
     #Se conecta a la base de datos para verificar si el user y pass son correctos
     conectar.execute("SELECT idUsuario,user FROM Usuario WHERE user=(%s) and password=(%s) or idUsuario=(%s) and password=(%s)", [a, b, a, b])
     respuesta = conectar.fetchone()
@@ -212,14 +220,23 @@ def registrarOn():
     b = request.form['apellido']
     c = request.form['usuario']
     d = request.form['correo']
-    e = request.form['contrasenia']
+    e = encriptr(request.form['contrasenia'])
+    x = "T"
 
     conectar.execute("SELECT user FROM Usuario WHERE user=(%s) or idUsuario=(%s)", [c, d])
     respuesta = conectar.fetchone()
 
+
+
     if respuesta == None:
-        print("Bien")
-        return "<b>bien</b>"
+        conectar.execute("INSERT INTO Usuario_datos VALUES (NULL, %s, %s, %s);", [[a], [b], [x]])
+        mysql.connection.commit()
+        conectar.execute("SELECT MAX(idUsuario_datos) FROM Usuario_datos")
+        idUsuario = conectar.fetchone()[0]
+        print(idUsuario)
+        conectar.execute("INSERT INTO Usuario VALUES (NULL, %s, %s, %s);", [[c], [e], [idUsuario]])
+        mysql.connection.commit()
+        return redirect("/login")
     else:
         print("Mal")
         return "<b>mal</b>"

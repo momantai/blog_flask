@@ -42,8 +42,8 @@
 
 				<td><img id="profile" src="{{ url_for('static', filename='imagenes/imageperfile.jpg') }}"></td>
 				<td><div class="ctrio">
-					<h4>{{comentario[0]}}</h4>
-					<p>{{comentario[1]}}</p>
+					<h4 onclick="location.href='/+{{comentario[1]}}'">{{comentario[0]}}</h4>
+					<p>{{comentario[2]}}</p>
 				</div>
 				</td>
 			</table>
