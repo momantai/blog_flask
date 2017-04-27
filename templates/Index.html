@@ -11,7 +11,7 @@ plantilla de cuerpo.html,-->
 
 <style type="text/css">
 	#optiones a span {
-	 position: relative; float: right; width: 
+	 position: relative; float: right; width:
 			12px; height: 12px; margin-right: 15px; margin-top: 10px;  z-index: 1;
 	}
 	#eliminar {
@@ -40,7 +40,7 @@ plantilla de cuerpo.html,-->
 				<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
 				<a href="#"><span title="Editar" id="editar"></span></a>
 			</div>
-			<img src="{{url_for('static', filename='imagenes/'+a[5])}}">
+			<img src="{{url_for('static', filename='imagenes/'+a[7])}}">
 		</div>
 		<div>
 	  		<a href="/publicacion?ID={{a[0]}}"><b>{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->

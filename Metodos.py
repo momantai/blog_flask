@@ -2,7 +2,7 @@
 from flask import Flask, request, flash, redirect, url_for
 from flask import render_template
 from flask import session, escape
-
+import time
 from flask_mysqldb import MySQL
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
@@ -28,7 +28,6 @@ configure_uploads(app, photos)
 @app.route('/', methods=['POST', 'GET'])
 def principal():
     conectar = mysql.connection.cursor()
-    
     xy = ""
     conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
     resutado=conectar.fetchall()
@@ -92,9 +91,8 @@ def publlicacion():
     return render_template('Publicacion.html',resutado=resultado,comentarios=coments,id=idpublicacion, sessionopen=xy)
 
 @app.route('/publicar', methods=['POST', 'GET'])
-def publica():
+def publicar():
     conectar = mysql.connection.cursor()
-
     xy = ""
     if 'username' in session:
         xy = escape(session['username'])
@@ -106,11 +104,10 @@ def publica():
 @app.route('/add', methods=['POST'])
 def add_entry():
     conectar = mysql.connection.cursor()
-
+    fecha=time.strftime("%d/%m/%y")
     #Aquí obtenemos el archivo por metodo POST y es almacenado en la carpeta configurada para almacenar las imagenes.
     #También recogemos el valor de la ruta para ser alcacenada en base de datos.
     f = photos.save(request.files['file'])
-
     subCat = ""
     #HUbo un probema con la elección de las subcategorias que fue resulto de esta manera if-else
     if request.form["categoria"]=="1":
@@ -130,7 +127,7 @@ def add_entry():
     print(subCat)
 
     #PD. Se agrego la categoria y subcategoria.
-    conectar.execute("INSERT INTO Publicacion(titulo, cuerpo, categoria, subCategoria, portada) values(%s, %s, %s, %s, %s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'], subCat, [f]])
+    conectar.execute("INSERT INTO Publicacion(titulo, cuerpo, categoria,fechaPublicacion, subCategoria,Usuario_idUsuario, portada) values(%s, %s, %s, %s, %s,%s,%s)", [request.form['titulo'], request.form['publicacion'], request.form['categoria'],fecha, subCat,session['id'], [f]])
     mysql.connection.commit()
     flash('Publicacion hecha')
 
@@ -154,9 +151,10 @@ def deletePub():
 @app.route('/addcoment', methods=['POST'])
 def add_comentario():
     conectar = mysql.connection.cursor()
-
+    fecha=time.strftime("%y/%m/%d")
+    print(fecha)
     idpublicacion=request.args.get('ID')
-    conectar.execute("INSERT INTO Comentario(comentario, Publicacion_idPublicacionC) values (%s, %s)",[request.form['comentario'],idpublicacion])
+    conectar.execute("INSERT INTO Comentario(comentario,fechaComentario,Usuario_idUsuarioC, Publicacion_idPublicacionC) values (%s, %s,%s,%s)",[request.form['comentario'],fecha,session['id'],idpublicacion])
     mysql.connection.commit()
     return redirect("/publicacion?ID=%s" %idpublicacion)
 
@@ -182,12 +180,13 @@ def loginIn():
     a = request.form['username']
     b = request.form['passworde']
     #Se conecta a la base de datos para verificar si el user y pass son correctos
-    conectar.execute("SELECT user FROM Usuario WHERE user=(%s) and password=(%s) or idUsuario=(%s) and password=(%s)", [a, b, a, b])
+    conectar.execute("SELECT idUsuario,user FROM Usuario WHERE user=(%s) and password=(%s) or idUsuario=(%s) and password=(%s)", [a, b, a, b])
     respuesta = conectar.fetchone()
 
     if respuesta != None:
         #De ser así abre una nueva sesión.
-        session['username'] = respuesta[0]
+        session['id']=respuesta[0]
+        session['username'] = respuesta[1]
         return redirect(url_for("principal"))
     else:
         return loginOut()
@@ -196,6 +195,7 @@ def loginIn():
 def logout():
     #Elimina la sesion
     session.pop('username', None)
+    session.pop('id')
     return redirect(url_for("principal"))
 
 

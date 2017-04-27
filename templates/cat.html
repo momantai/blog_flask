@@ -14,7 +14,7 @@ plantilla de cuerpo.html,-->
 {%for a in lista%}
 	<div class="publicacion" onclick="location.href='/publicacion?ID={{a[0]}}'">
 		<div class="portada">
-			<img src="{{url_for('static', filename='imagenes/'+a[5])}}">
+			<img src="{{url_for('static', filename='imagenes/'+a[7])}}">
 		</div>
 		<div>
 	  		<a href="/publicacion?ID={{a[0]}}"><b>{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
