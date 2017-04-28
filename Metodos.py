@@ -240,14 +240,17 @@ def usuario(user):
     conectar = mysql.connection.cursor()
 
     #PD. Aun no hace nada por que aun se esta haciendo el html, pero ya se comprobo que funciona la url.
-    conectar.execute("SELECT * FROM  Usuario INNER JOIN  Usuario_datos ON  Usuario_datos_idUsuario_datos = idUsuario_datos WHERE user =(%s);", [user])
+    conectar.execute("SELECT idUsuario,user,Nombre,Ape_pat,imagen_perfil,firma FROM  Usuario INNER JOIN  Usuario_datos ON  Usuario_datos_idUsuario_datos = idUsuario_datos  WHERE user =(%s);", [user])
     resultado = conectar.fetchall()
+
+    conectar.execute("SELECT idPublicacion,portada,titulo,cuerpo,fechaPublicacion,user,Nombre,Ape_pat FROM  Usuario INNER JOIN Publicacion ON Usuario_idUsuario=idUsuario INNER JOIN  Usuario_datos ON  Usuario_datos_idUsuario_datos = idUsuario_datos  WHERE user =(%s);", [user])
+    publicaciones = conectar.fetchall()
     xy = ""
     if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
         id=session['id']
 
-    return render_template("user.html", sessionopen=xy, datos=resultado,id=id)
+    return render_template("user.html", sessionopen=xy, datos=resultado,publicaciones=publicaciones,id=id)
 
 @app.route('/Update-user')
 def update():

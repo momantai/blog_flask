@@ -14,17 +14,40 @@
 {%endif%}
 <section id="infoUser">
 	<section id="imgProfile">
-		<img src="{{url_for('static', filename='imagenes/'+a[8])}}">
+		<img src="{{url_for('static', filename='imagenes/'+a[4])}}">
 	</section>
 
 	<section id="nameUser">
 		<div>
-		<h2>{{a[1]}} ({{a[5]}} {{a[6]}})</h2>
+		<h2>{{a[1]}} ({{a[2]}} {{a[3]}})</h2>
 		<div id="verified" title="verificado"></div>
 	</section>
 	<section id="frase">
-			<p>{{a[9]}}</p>
+			<p>{{a[5]}}</p>
 	</section>
 </section>
 {%endfor%}
+
+{%for a in publicaciones%}
+<div class="publicacion" onclick="location.href='/publicacion?ID={{a[0]}}'">
+	<div class="portada">
+	{% if id == a[0] %}
+		<div id="optiones">
+			<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
+			<a href="#"><span title="Editar" id="editar"></span></a>
+		</div>
+	{% endif %}
+		<img src="{{url_for('static', filename='imagenes/'+a[1])}}">
+	</div>
+	<div>
+			<a href="/publicacion?ID={{a[0]}}"><b id="titulo">{{a[2]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
+			<p>{{ a[3][:240] | safe}}...</p>
+		</div>
+		<div id="pP">
+			<p>Por: <a href="/+{{a[5]}}">{{a[6]}} {{a[7]}}</a> | Publicado: {{a[4]}}</p>
+		</div>
+</div>
+{%endfor%}
+
+
 {% endblock %}

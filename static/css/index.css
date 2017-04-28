@@ -1,6 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 #publicaciones{
-
   width: 800px;
   //border:0.2px solid #ccc;
   padding: 20px;
@@ -8,7 +7,7 @@
 
 }
 
-	.publicacion{ 	
+	.publicacion{
 		margin: 0 auto;
 		width: 550px;
 		min-height: 50px;
