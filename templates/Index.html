@@ -29,6 +29,10 @@ plantilla de cuerpo.html,-->
 	#editar:hover {
 		background-color: #ccc;
 	}
+
+	#titulo, #pP p a {
+		text-transform: capitalize;
+	}
 	</style>
 
 
@@ -36,15 +40,20 @@ plantilla de cuerpo.html,-->
 {%for a in lista%}
 	<div class="publicacion" onclick="location.href='/publicacion?ID={{a[0]}}'">
 		<div class="portada">
+		{% if sessionopen == a[6] %}
 			<div id="optiones">
 				<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
 				<a href="#"><span title="Editar" id="editar"></span></a>
 			</div>
-			<img src="{{url_for('static', filename='imagenes/'+a[7])}}">
+		{% endif %}	
+			<img src="{{url_for('static', filename='imagenes/'+a[3])}}">
 		</div>
 		<div>
-	  		<a href="/publicacion?ID={{a[0]}}"><b>{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
+	  		<a href="/publicacion?ID={{a[0]}}"><b id="titulo">{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
 	  		<p>{{ a[2][:240] | safe}}...</p>
+  		</div>
+  		<div id="pP">
+  			<p>Por: <a href="/+{{a[6]}}">{{a[4]}} {{a[5]}}</a> | Publicado: {{a[7]}}</p>
   		</div>
 	</div>
 	{%endfor%}

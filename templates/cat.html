@@ -9,16 +9,50 @@ plantilla de cuerpo.html,-->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 <!--<script type="text/javascript" src="{{ url_for('static', filename='js/cssrefresh.js') }}"></script>-->
 
+<style type="text/css">
+	#optiones a span {
+	 position: relative; float: right; width:
+			12px; height: 12px; margin-right: 15px; margin-top: 10px;  z-index: 1;
+	}
+	#eliminar {
+		background-image: url('../static/imagenes/cross.svg'); background-size: 12px;
+	}
+
+	#eliminar:hover {
+		background-color: #ccc;
+	}
+
+	#editar {
+		background-image: url('../static/imagenes/edit.svg'); background-size: 12px;
+	}
+
+	#editar:hover {
+		background-color: #ccc;
+	}
+
+	#titulo, #pP p a {
+		text-transform: capitalize;
+	}
+	</style>
 
 <div id="publicaciones">
 {%for a in lista%}
 	<div class="publicacion" onclick="location.href='/publicacion?ID={{a[0]}}'">
 		<div class="portada">
-			<img src="{{url_for('static', filename='imagenes/'+a[7])}}">
+		{% if sessionopen == a[6] %}
+			<div id="optiones">
+				<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
+				<a href="#"><span title="Editar" id="editar"></span></a>
+			</div>
+		{% endif %}	
+			<img src="{{url_for('static', filename='imagenes/'+a[3])}}">
 		</div>
 		<div>
-	  		<a href="/publicacion?ID={{a[0]}}"><b>{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
+	  		<a href="/publicacion?ID={{a[0]}}"><b id="titulo">{{a[1]}}</b></a><!--Se imprime el ID de la publicacion en la url para enviarla y que se reciba el parametro en el archivo Metodos.py-->
 	  		<p>{{ a[2][:240] | safe}}...</p>
+  		</div>
+  		<div id="pP">
+  			<p>Por: <a href="/+{{a[6]}}">{{a[4]}} {{a[5]}}</a> | Publicado: {{a[7]}}</p>
   		</div>
 	</div>
 	{%endfor%}

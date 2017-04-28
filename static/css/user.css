@@ -42,18 +42,25 @@
 	font-size: 14px;
 	position: absolute;
 	border-bottom: solid 1px #ccc;
+	display: inline-flex;
+	text-align-last: center;
+}
+
+#nameUser div {
 	display: flex;
-	text-align: center;
+	margin: 0 auto;
 }
 
 #nameUser h2 {
+	position: relative;
 	margin: 0 auto;
+	margin-right: 5px;
 }
 
 #verified {
 	width: 20px;
 	height: 20px;
-	//position: relative;
+	position: relative;
 	margin-left: 5px;
 	margin-bottom: 5px;
 	//border: solid 1px #ccc;

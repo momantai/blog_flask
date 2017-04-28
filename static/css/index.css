@@ -64,6 +64,12 @@
 		 transform: translateY(-15%);
 	}
 
+	#pP {
+		width: 100%;
+		margin-top: 5px;
+		border-top: 1px solid #ccc;
+	}
+
 #pie{
 	width: 960px;
 	margin: 0 auto;

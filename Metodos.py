@@ -31,7 +31,11 @@ encriptar=encriptacion.encriptr
 def principal():
     conectar = mysql.connection.cursor()
     xy = ""
-    conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
+    #conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
+        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
+        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+        ORDER BY idPublicacion DESC limit 10""")
     resutado=conectar.fetchall()
     if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
@@ -55,7 +59,11 @@ def usuario(user):
 def categorias(categoria, subcategoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("SELECT * FROM Publicacion WHERE categoria = (%s) and subCategoria = (%s);", [[categoria], [subcategoria]])
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
+        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
+        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+        WHERE categoria = (%s) AND subCategoria = (%s) ORDER BY idPublicacion DESC""", [[categoria], [subcategoria]])
+
     resultado = conectar.fetchall()
 
     xy = ""
@@ -67,7 +75,11 @@ def categorias(categoria, subcategoria):
 def categoria(categoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("SELECT * FROM Publicacion WHERE categoria = (%s);", [categoria])
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
+        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
+        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+        WHERE categoria = (%s) ORDER BY idPublicacion DESC""", [categoria])
+
     resultado = conectar.fetchall()
 
     xy = ""
@@ -105,7 +117,7 @@ def publicar():
 @app.route('/add', methods=['POST'])
 def add_entry():
     conectar = mysql.connection.cursor()
-    fecha=time.strftime("%d/%m/%y")
+    fecha=time.strftime("%y/%m/%d")
     #Aquí obtenemos el archivo por metodo POST y es almacenado en la carpeta configurada para almacenar las imagenes.
     #También recogemos el valor de la ruta para ser alcacenada en base de datos.
     f = photos.save(request.files['file'])
@@ -140,7 +152,7 @@ def add_entry():
 @app.route('/deletePub')
 def deletePub():
     conectar = mysql.connection.cursor()
-
+    
     id = request.args.get('pub')
     conectar.execute("DELETE FROM Comentario WHERE Publicacion_idPublicacionC = (%s)", [id]);
     mysql.connection.commit()
