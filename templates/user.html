@@ -5,6 +5,13 @@
 
 <!-- En esta sección encontramos la información de un usuario unico -->
 {%for a in datos%}
+	{% if id == a[0] %}
+<div id="panel">
+	<a href="/Update-user"><p>Actualizar Datos</p></a>
+	<a href="#"><p>Actualizar Firma</p></a>
+	<a href="#"><p>Cambiar Contraseña</p></a>
+</div>
+{%endif%}
 <section id="infoUser">
 	<section id="imgProfile">
 		<img src="{{url_for('static', filename='imagenes/'+a[8])}}">

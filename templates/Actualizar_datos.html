@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registrar | StreetCode</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../static/css/Actualizar_datos.css">
+</head>
+<body>
+	<div id="registro">
+   {%for a in resutado%}
+   <div id="titulo">
+     <span><p>ACTUALIZAR</p></span>
+   </div>
+		<form action="/update-add?code={{a[3]}}" method="POST">
+			<table>
+				<tr>
+          <td class="titulo"><b><p>Nombre:</p></b></td>
+					<td><input class="inputsrg" type="text" value="{{a[0]}}" name="nombre" placeholder="Nombre" required></td>
+				</tr>
+				<tr>
+          <td class="titulo"><b><p>Apellido paterno:</p></b></td>
+					<td><input class="inputsrg" type="text" value="{{a[1]}}" name="ape_pat" placeholder="Apellidos paterno" required></td>
+				</tr>
+				<tr>
+          <td class="titulo"><b><p>Apellido materno:</p></b></td>
+					<td><input class="inputsrg" type="text" value="{{a[2]}}" name="ape_mat" placeholder="apellido materno" required></td>
+				</tr>
+				<tr>
+					<td><input id="enviar" type="submit" name="enviar" value="Actualizar"></td>
+				</tr>
+			</table>
+		</form>
+    {%endfor%}
+	</div>
+</body>
+</html>

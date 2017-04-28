@@ -32,9 +32,9 @@ def principal():
     conectar = mysql.connection.cursor()
     xy = ""
     #conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
-    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
+        FROM Publicacion INNER JOIN Usuario ON idUsuario = Usuario_idUsuario
+        INNER JOIN Usuario_datos ON idUsuario_datos = Usuario_datos_idUsuario_datos
         ORDER BY idPublicacion DESC limit 10""")
     resutado=conectar.fetchall()
     if 'username' in session: #Verifica si hay un usuario en sesion
@@ -42,26 +42,15 @@ def principal():
     return render_template('Index.html',lista=resutado, sessionopen=xy)
 
 #Ruta de direcciones para entrar al perfil de algún usuario con su nombre de usuario de manera "+nameUser"
-@app.route('/+<user>', methods=['POST', 'GET'])
-def usuario(user):
-    conectar = mysql.connection.cursor()
 
-    #PD. Aun no hace nada por que aun se esta haciendo el html, pero ya se comprobo que funciona la url.
-    conectar.execute("SELECT * FROM  Usuario INNER JOIN  Usuario_datos ON  Usuario_datos_idUsuario_datos = idUsuario_datos WHERE user =(%s);", [user])
-    resultado = conectar.fetchall()
-    xy = ""
-    if 'username' in session: #Verifica si hay un usuario en sesion
-        xy = escape(session['username'])
-
-    return render_template("user.html", sessionopen=xy, datos=resultado)
 
 @app.route('/<categoria>/<subcategoria>')
 def categorias(categoria, subcategoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
+        FROM Publicacion INNER JOIN Usuario ON idUsuario = Usuario_idUsuario
+        INNER JOIN Usuario_datos ON idUsuario_datos = Usuario_datos_idUsuario_datos
         WHERE categoria = (%s) AND subCategoria = (%s) ORDER BY idPublicacion DESC""", [[categoria], [subcategoria]])
 
     resultado = conectar.fetchall()
@@ -75,9 +64,9 @@ def categorias(categoria, subcategoria):
 def categoria(categoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
+        FROM Publicacion INNER JOIN Usuario ON idUsuario = Usuario_idUsuario
+        INNER JOIN Usuario_datos ON idUsuario_datos = Usuario_datos_idUsuario_datos
         WHERE categoria = (%s) ORDER BY idPublicacion DESC""", [categoria])
 
     resultado = conectar.fetchall()
@@ -95,7 +84,7 @@ def publlicacion():
     conectar.execute("SELECT * FROM Publicacion WHERE idPublicacion = (%s)" % idpublicacion)
     resultado=conectar.fetchall()
 
-    conectar.execute("SELECT Nombre, user, comentario FROM Comentario INNER JOIN Usuario ON Usuario.idUsuario = Comentario.Usuario_idUsuarioC INNER JOIN Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos WHERE Publicacion_idPublicacionC = (%s)" %idpublicacion)
+    conectar.execute("SELECT Nombre, user, comentario FROM Comentario INNER JOIN Usuario ON idUsuario = Usuario_idUsuarioC INNER JOIN Usuario_datos ON idUsuario_datos = Usuario_datos_idUsuario_datos WHERE Publicacion_idPublicacionC = (%s)" %idpublicacion)
     coments=conectar.fetchall()
     xy = ""
     if 'username' in session:
@@ -152,7 +141,7 @@ def add_entry():
 @app.route('/deletePub')
 def deletePub():
     conectar = mysql.connection.cursor()
-    
+
     id = request.args.get('pub')
     conectar.execute("DELETE FROM Comentario WHERE Publicacion_idPublicacionC = (%s)", [id]);
     mysql.connection.commit()
@@ -181,8 +170,6 @@ def login():
 def loginOut():
     return render_template('login.html', xerror=True)
 
-def a():
-    return "Hola"
 
 @app.route('/loginIn', methods=['POST'])
 def loginIn():
@@ -246,8 +233,41 @@ def registrarOn():
         print("Mal")
         return "<b>mal</b>"
 
-#Futura Area de Perfil de usuario :v
 
+#Futura Area de Perfil de usuario :v
+@app.route('/+<user>', methods=['POST', 'GET'])
+def usuario(user):
+    conectar = mysql.connection.cursor()
+
+    #PD. Aun no hace nada por que aun se esta haciendo el html, pero ya se comprobo que funciona la url.
+    conectar.execute("SELECT * FROM  Usuario INNER JOIN  Usuario_datos ON  Usuario_datos_idUsuario_datos = idUsuario_datos WHERE user =(%s);", [user])
+    resultado = conectar.fetchall()
+    xy = ""
+    if 'username' in session: #Verifica si hay un usuario en sesion
+        xy = escape(session['username'])
+        id=session['id']
+
+    return render_template("user.html", sessionopen=xy, datos=resultado,id=id)
+
+@app.route('/Update-user')
+def update():
+    conectar = mysql.connection.cursor()
+    if 'username' in session:
+        conectar.execute("SELECT Nombre, Ape_pat, Ape_mat,idUsuario_datos FROM Usuario INNER JOIN Usuario_datos ON idUsuario_datos = Usuario_datos_idUsuario_datos WHERE idUsuario=(%s)",[session['id']])
+        resutado=conectar.fetchall()
+        return render_template("Actualizar_datos.html",resutado=resutado)
+    else:
+        return redirect("/login")
+@app.route('/update-add', methods=['POST'])
+def update_add():
+    conectar = mysql.connection.cursor()
+    id=request.args.get('code')
+    nombre=request.form['nombre']
+    apepat=request.form['ape_pat']
+    apemat=request.form['ape_mat']
+    conectar.execute("UPDATE Usuario_datos SET nombre=%s,Ape_pat=%s,Ape_mat=%s WHERE idUsuario_datos=%s",[ nombre,apepat ,apemat ,id])
+    mysql.connection.commit()
+    return redirect('/+%s' %session['username'])
 #-------------------------------------------------------------------------------------------------------------------------------------------------
 if __name__=='__main__':
     app.run(debug=True, port=5000)
