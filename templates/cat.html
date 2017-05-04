@@ -42,7 +42,7 @@ plantilla de cuerpo.html,-->
 		{% if sessionopen == a[6] %}
 			<div id="optiones">
 				<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
-				<a href="#"><span title="Editar" id="editar"></span></a>
+				<a href="/editarPub?ref={{a[0]}}"><span title="Editar" id="editar"></span></a>
 			</div>
 		{% endif %}	
 			<img src="{{url_for('static', filename='imagenes/'+a[3])}}">

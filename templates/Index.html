@@ -36,15 +36,16 @@ plantilla de cuerpo.html,-->
 	</style>
 
 
+<div id="publicaciones">
 {%for a in lista%}
 	<div class="publicacion" onclick="location.href='/publicacion?ID={{a[0]}}'">
 		<div class="portada">
 		{% if sessionopen == a[6] %}
 			<div id="optiones">
 				<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
-				<a href="#"><span title="Editar" id="editar"></span></a>
+				<a href="/editarPub?ref={{a[0]}}"><span title="Editar" id="editar"></span></a>
 			</div>
-		{% endif %}
+		{% endif %}	
 			<img src="{{url_for('static', filename='imagenes/'+a[3])}}">
 		</div>
 		<div>
@@ -56,5 +57,6 @@ plantilla de cuerpo.html,-->
   		</div>
 	</div>
 	{%endfor%}
+</div>
 
 {%endblock%}

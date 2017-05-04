@@ -2,14 +2,39 @@
 {% block cuerpo %}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/user.css')}}">
 
+<style type="text/css">
+	#optiones a span {
+	 position: relative; float: right; width:
+			12px; height: 12px; margin-right: 15px; margin-top: 10px;  z-index: 1;
+	}
+	#eliminar {
+		background-image: url('../static/imagenes/cross.svg'); background-size: 12px;
+	}
+
+	#eliminar:hover {
+		background-color: #ccc;
+	}
+
+	#editar {
+		background-image: url('../static/imagenes/edit.svg'); background-size: 12px;
+	}
+
+	#editar:hover {
+		background-color: #ccc;
+	}
+
+	#titulo, #pP p a {
+		text-transform: capitalize;
+	}
+	</style>
 
 <!-- En esta sección encontramos la información de un usuario unico -->
 {%for a in datos%}
 	{% if id == a[0] %}
 <div id="panel">
 	<a href="/Update-user"><p>Actualizar Datos</p></a>
-	<a href="#"><p>Actualizar Firma</p></a>
-	<a href="#"><p>Cambiar Contraseña</p></a>
+	<!--<a href="#"><p>Actualizar Firma</p></a>
+	<a href="#"><p>Cambiar Contraseña</p></a>-->
 </div>
 {%endif%}
 <section id="infoUser">
@@ -31,12 +56,12 @@
 {%for a in publicaciones%}
 <div class="publicacion" onclick="location.href='/publicacion?ID={{a[0]}}'">
 	<div class="portada">
-	{% if id == a[0] %}
-		<div id="optiones">
-			<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
-			<a href="#"><span title="Editar" id="editar"></span></a>
-		</div>
-	{% endif %}
+	{% if sessionopen == a[5] %}
+			<div id="optiones">
+				<a href="/deletePub?pub={{a[0]}}"><span title="Eliminar" id="eliminar"></span></a>
+				<a href="/editarPub?ref={{a[0]}}"><span title="Editar" id="editar"></span></a>
+			</div>
+		{% endif %}
 		<img src="{{url_for('static', filename='imagenes/'+a[1])}}">
 	</div>
 	<div>
