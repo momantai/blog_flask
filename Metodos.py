@@ -10,7 +10,7 @@ photos = UploadSet('photos', IMAGES)
 
 
 app= Flask(__name__)
-app.secret_key = "super secret key"
+app.secret_key = "super secret keyx"
 
 app.config['MYSQL_HOST'] = "mysql2.paris1.alwaysdata.com"
 app.config['MYSQL_USER'] = "133991"
