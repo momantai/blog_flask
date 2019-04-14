@@ -12,9 +12,9 @@ photos = UploadSet('photos', IMAGES)
 app= Flask(__name__)
 app.secret_key = "super secret keyx"
 
-app.config['MYSQL_HOST'] = "mysql2.paris1.alwaysdata.com"
-app.config['MYSQL_USER'] = "133991"
-app.config['MYSQL_PASSWORD'] = "momantai"
+app.config['MYSQL_HOST'] = "localhost"
+app.config['MYSQL_USER'] = "root"
+app.config['MYSQL_PASSWORD'] = "5fredy5"
 app.config['MYSQL_DB'] = "momantaiter_blogflask"
 mysql = MySQL(app)
 
@@ -32,9 +32,9 @@ def principal():
     conectar = mysql.connection.cursor()
     xy = ""
     #conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
-    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
+        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
+        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
         ORDER BY idPublicacion DESC limit 10""")
     resutado=conectar.fetchall()
     if 'username' in session: #Verifica si hay un usuario en sesion
@@ -48,9 +48,9 @@ def principal():
 def categorias(categoria, subcategoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
+        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
+        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
         WHERE categoria = (%s) AND subCategoria = (%s) ORDER BY idPublicacion DESC""", [[categoria], [subcategoria]])
 
     resultado = conectar.fetchall()
@@ -64,9 +64,9 @@ def categorias(categoria, subcategoria):
 def categoria(categoria):
     conectar = mysql.connection.cursor()
 
-    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion 
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario 
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos 
+    conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
+        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
+        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
         WHERE categoria = (%s) ORDER BY idPublicacion DESC""", [categoria])
 
     resultado = conectar.fetchall()
@@ -138,17 +138,17 @@ def editP():
     try:
         f = photos.save(request.files['file'])
 
-        conectar.execute("""UPDATE Publicacion SET titulo = (%s), cuerpo = (%s), categoria = (%s), 
+        conectar.execute("""UPDATE Publicacion SET titulo = (%s), cuerpo = (%s), categoria = (%s),
             subCategoria = (%s), portada = (%s) WHERE idPublicacion = (%s) and  Usuario_idUsuario = (%s)
             """, [[request.form['titulo']], [request.form['publicacion']], [request.form['categoria']], [subCat], [f], [request.form['xpubxid']], [idU]])
         mysql.connection.commit()
     except:
-        conectar.execute("""UPDATE Publicacion SET titulo = (%s), cuerpo = (%s), categoria = (%s), 
+        conectar.execute("""UPDATE Publicacion SET titulo = (%s), cuerpo = (%s), categoria = (%s),
             subCategoria = (%s) WHERE idPublicacion = (%s) and  Usuario_idUsuario = (%s)
             """, [[request.form['titulo']], [request.form['publicacion']], [request.form['categoria']], [subCat], [request.form['xpubxid']], [idU]])
         mysql.connection.commit()
     return redirect("/publicacion?ID="+request.form['xpubxid'])
-        
+
 
 @app.route('/add', methods=['POST'])
 def add_entry():
@@ -185,7 +185,7 @@ def add_entry():
 @app.route('/deletePub')
 def deletePub():
     conectar = mysql.connection.cursor()
-    
+
     id = request.args.get('pub')
     conectar.execute("DELETE FROM Comentario WHERE Publicacion_idPublicacionC = (%s)", [id]);
     mysql.connection.commit()
@@ -200,8 +200,8 @@ def add_comentario():
     fecha=time.strftime("%y/%m/%d")
     print(fecha)
     idpublicacion=request.args.get('ID')
-    conectar.execute("""INSERT INTO Comentario(comentario,fechaComentario,Usuario_idUsuarioC, 
-        Publicacion_idPublicacionC) 
+    conectar.execute("""INSERT INTO Comentario(comentario,fechaComentario,Usuario_idUsuarioC,
+        Publicacion_idPublicacionC)
         values (%s, %s,%s,%s)""",[request.form['comentario'],fecha,session['id'],idpublicacion])
     mysql.connection.commit()
     return redirect("/publicacion?ID=%s" %idpublicacion)
@@ -297,7 +297,10 @@ def usuario(user):
     if 'username' in session: #Verifica si hay un usuario en sesion
         xy = escape(session['username'])
         id=session['id']
-    return render_template("user.html", sessionopen=xy, datos=resultado,publicaciones=publicaciones,id=id)
+        return render_template("user.html", sessionopen=xy, datos=resultado,publicaciones=publicaciones,id=id)
+    else:
+        return render_template("user.html", sessionopen=xy, datos=resultado,publicaciones=publicaciones)
+
 
 @app.route('/Update-user')
 def update():
