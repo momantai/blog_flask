@@ -10,12 +10,9 @@ photos = UploadSet('photos', IMAGES)
 
 
 app= Flask(__name__)
-app.secret_key = "super secret keyx"
 
-app.config['MYSQL_HOST'] = "localhost"
-app.config['MYSQL_USER'] = "root"
-app.config['MYSQL_PASSWORD'] = "5fredy5"
-app.config['MYSQL_DB'] = "momantaiter_blogflask"
+app.config.from_pyfile('config.py')
+
 mysql = MySQL(app)
 
 #Configuración para cargar imagenes
@@ -33,8 +30,8 @@ def principal():
     xy = ""
     #conectar.execute("SELECT * FROM Publicacion ORDER BY idPublicacion DESC limit 10")
     conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
+        FROM Publicacion INNER JOIN Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
+        INNER JOIN Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
         ORDER BY idPublicacion DESC limit 10""")
     resutado=conectar.fetchall()
     if 'username' in session: #Verifica si hay un usuario en sesion
@@ -49,8 +46,8 @@ def categorias(categoria, subcategoria):
     conectar = mysql.connection.cursor()
 
     conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
+        FROM Publicacion INNER JOIN Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
+        INNER JOIN Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
         WHERE categoria = (%s) AND subCategoria = (%s) ORDER BY idPublicacion DESC""", [[categoria], [subcategoria]])
 
     resultado = conectar.fetchall()
@@ -65,8 +62,8 @@ def categoria(categoria):
     conectar = mysql.connection.cursor()
 
     conectar.execute("""SELECT idPublicacion, titulo, cuerpo, portada,Nombre, Ape_pat, user, fechaPublicacion
-        FROM Publicacion INNER JOIN momantaiter_blogflask.Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
-        INNER JOIN momantaiter_blogflask.Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
+        FROM Publicacion INNER JOIN Usuario ON Usuario.idUsuario = Publicacion.Usuario_idUsuario
+        INNER JOIN Usuario_datos ON Usuario_datos.idUsuario_datos = Usuario.Usuario_datos_idUsuario_datos
         WHERE categoria = (%s) ORDER BY idPublicacion DESC""", [categoria])
 
     resultado = conectar.fetchall()
